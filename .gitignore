@@ -361,3 +361,17 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Healthcare.Api/bin/Debug/net6.0/Healthcare.Api.dll
+/Healthcare.Api/bin/Debug/net6.0/Healthcare.Api.exe
+/Healthcare.Api/bin/Debug/net6.0/Healthcare.Api.pdb
+/Healthcare.Api/bin/Debug/net6.0/Healthcare.Application.dll
+/Healthcare.Api/bin/Debug/net6.0/Healthcare.Application.pdb
+/Healthcare.Api/bin/Debug/net6.0/Healthcare.Infrastructure.pdb
+/Healthcare.Api/bin/Debug/net6.0/Healthcare.Infrastructure.dll
+/Healthcare.Api/obj/Debug/net6.0/ref/Healthcare.Api.dll
+/Healthcare.Api/obj/Debug/net6.0/refint/Healthcare.Api.dll
+/Healthcare.Api/obj/Debug/net6.0/apphost.exe
+/Healthcare.Application/bin/Debug/net6.0/Healthcare.Application.dll
+/Healthcare.Application/bin/Debug/net6.0/Healthcare.Application.pdb
+/Healthcare.Infrastructure/bin/Debug/net6.0/Healthcare.Infrastructure.dll
+/Healthcare.Infrastructure/bin/Debug/net6.0/Healthcare.Infrastructure.pdb
