@@ -1,0 +1,11 @@
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\bin\Debug\net6.0\Healthcare.Infrastructure.deps.json
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\bin\Debug\net6.0\Healthcare.Infrastructure.dll
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\bin\Debug\net6.0\Healthcare.Infrastructure.pdb
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\obj\Debug\net6.0\Healthcare.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\obj\Debug\net6.0\Healthcare.Infrastructure.AssemblyInfoInputs.cache
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\obj\Debug\net6.0\Healthcare.Infrastructure.AssemblyInfo.cs
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\obj\Debug\net6.0\Healthcare.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\obj\Debug\net6.0\Healthcare.Infrastructure.dll
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\obj\Debug\net6.0\refint\Healthcare.Infrastructure.dll
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\obj\Debug\net6.0\Healthcare.Infrastructure.pdb
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\obj\Debug\net6.0\ref\Healthcare.Infrastructure.dll

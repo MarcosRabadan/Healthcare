@@ -1,0 +1,11 @@
+C:\Practicas\Healthcare\Healthcare\Healthcare.Domain\bin\Debug\net6.0\Healthcare.Domain.deps.json
+C:\Practicas\Healthcare\Healthcare\Healthcare.Domain\bin\Debug\net6.0\Healthcare.Domain.dll
+C:\Practicas\Healthcare\Healthcare\Healthcare.Domain\bin\Debug\net6.0\Healthcare.Domain.pdb
+C:\Practicas\Healthcare\Healthcare\Healthcare.Domain\obj\Debug\net6.0\Healthcare.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Practicas\Healthcare\Healthcare\Healthcare.Domain\obj\Debug\net6.0\Healthcare.Domain.AssemblyInfoInputs.cache
+C:\Practicas\Healthcare\Healthcare\Healthcare.Domain\obj\Debug\net6.0\Healthcare.Domain.AssemblyInfo.cs
+C:\Practicas\Healthcare\Healthcare\Healthcare.Domain\obj\Debug\net6.0\Healthcare.Domain.csproj.CoreCompileInputs.cache
+C:\Practicas\Healthcare\Healthcare\Healthcare.Domain\obj\Debug\net6.0\Healthcare.Domain.dll
+C:\Practicas\Healthcare\Healthcare\Healthcare.Domain\obj\Debug\net6.0\refint\Healthcare.Domain.dll
+C:\Practicas\Healthcare\Healthcare\Healthcare.Domain\obj\Debug\net6.0\Healthcare.Domain.pdb
+C:\Practicas\Healthcare\Healthcare\Healthcare.Domain\obj\Debug\net6.0\ref\Healthcare.Domain.dll
