@@ -9,3 +9,10 @@ C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\obj\Debug\net6.0\He
 C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\obj\Debug\net6.0\refint\Healthcare.Infrastructure.dll
 C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\obj\Debug\net6.0\Healthcare.Infrastructure.pdb
 C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\obj\Debug\net6.0\ref\Healthcare.Infrastructure.dll
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\bin\Debug\net6.0\Healthcare.Infrastructure.runtimeconfig.json
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\bin\Debug\net6.0\Healthcare.Domain.dll
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\bin\Debug\net6.0\Healthcare.Domain.pdb
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\obj\Debug\net6.0\Healthcare.Infrastructure.csproj.AssemblyReference.cache
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\obj\Debug\net6.0\Healthcare.Infrastructure.sourcelink.json
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\obj\Debug\net6.0\Healthca.5260CDE5.Up2Date
+C:\Practicas\Healthcare\Healthcare\Healthcare.Infrastructure\obj\Debug\net6.0\Healthcare.Infrastructure.genruntimeconfig.cache

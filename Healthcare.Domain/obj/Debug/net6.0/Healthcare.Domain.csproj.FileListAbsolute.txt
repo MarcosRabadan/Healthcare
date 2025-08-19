@@ -9,3 +9,4 @@ C:\Practicas\Healthcare\Healthcare\Healthcare.Domain\obj\Debug\net6.0\Healthcare
 C:\Practicas\Healthcare\Healthcare\Healthcare.Domain\obj\Debug\net6.0\refint\Healthcare.Domain.dll
 C:\Practicas\Healthcare\Healthcare\Healthcare.Domain\obj\Debug\net6.0\Healthcare.Domain.pdb
 C:\Practicas\Healthcare\Healthcare\Healthcare.Domain\obj\Debug\net6.0\ref\Healthcare.Domain.dll
+C:\Practicas\Healthcare\Healthcare\Healthcare.Domain\obj\Debug\net6.0\Healthcare.Domain.sourcelink.json
