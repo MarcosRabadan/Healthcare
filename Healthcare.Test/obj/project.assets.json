@@ -684,6 +684,42 @@
             "related": ".xml"
           }
         }
+      },
+      "Healthcare.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Healthcare.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Healthcare.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Healthcare.Application.dll": {}
+        }
+      },
+      "Healthcare.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Healthcare.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Healthcare.Domain.dll": {}
+        }
+      },
+      "Healthcare.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Healthcare.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Healthcare.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Healthcare.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -1643,10 +1679,28 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Healthcare.Application/1.0.0": {
+      "type": "project",
+      "path": "../Healthcare.Application/Healthcare.Application.csproj",
+      "msbuildProject": "../Healthcare.Application/Healthcare.Application.csproj"
+    },
+    "Healthcare.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Healthcare.Domain/Healthcare.Domain.csproj",
+      "msbuildProject": "../Healthcare.Domain/Healthcare.Domain.csproj"
+    },
+    "Healthcare.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../Healthcare.Infrastructure/Healthcare.Infrastructure.csproj",
+      "msbuildProject": "../Healthcare.Infrastructure/Healthcare.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Healthcare.Application >= 1.0.0",
+      "Healthcare.Domain >= 1.0.0",
+      "Healthcare.Infrastructure >= 1.0.0",
       "MSTest >= 3.6.4",
       "Microsoft.NET.Test.Sdk >= 17.12.0"
     ]
@@ -1682,7 +1736,17 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Practicas\\Healthcare\\Healthcare\\Healthcare.Application\\Healthcare.Application.csproj": {
+              "projectPath": "C:\\Practicas\\Healthcare\\Healthcare\\Healthcare.Application\\Healthcare.Application.csproj"
+            },
+            "C:\\Practicas\\Healthcare\\Healthcare\\Healthcare.Domain\\Healthcare.Domain.csproj": {
+              "projectPath": "C:\\Practicas\\Healthcare\\Healthcare\\Healthcare.Domain\\Healthcare.Domain.csproj"
+            },
+            "C:\\Practicas\\Healthcare\\Healthcare\\Healthcare.Infrastructure\\Healthcare.Infrastructure.csproj": {
+              "projectPath": "C:\\Practicas\\Healthcare\\Healthcare\\Healthcare.Infrastructure\\Healthcare.Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

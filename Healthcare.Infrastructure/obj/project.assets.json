@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {}
+    "net6.0": {
+      "Healthcare.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Healthcare.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Healthcare.Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Healthcare.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Healthcare.Domain/Healthcare.Domain.csproj",
+      "msbuildProject": "../Healthcare.Domain/Healthcare.Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0": []
+    "net6.0": [
+      "Healthcare.Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\marcos.rabadan\\.nuget\\packages\\": {},
@@ -38,7 +57,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Practicas\\Healthcare\\Healthcare\\Healthcare.Domain\\Healthcare.Domain.csproj": {
+              "projectPath": "C:\\Practicas\\Healthcare\\Healthcare\\Healthcare.Domain\\Healthcare.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
