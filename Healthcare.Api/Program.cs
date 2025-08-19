@@ -19,7 +19,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Healthcare API v1");
-        c.RoutePrefix = "swagger"; // Opcional: para que Swagger esté en /swagger
+        c.RoutePrefix = "swagger";
     });
 }
 
