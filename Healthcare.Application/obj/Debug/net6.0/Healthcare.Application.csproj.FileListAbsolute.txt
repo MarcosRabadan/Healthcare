@@ -9,3 +9,8 @@ C:\Practicas\Healthcare\Healthcare\Healthcare.Application\obj\Debug\net6.0\Healt
 C:\Practicas\Healthcare\Healthcare\Healthcare.Application\obj\Debug\net6.0\refint\Healthcare.Application.dll
 C:\Practicas\Healthcare\Healthcare\Healthcare.Application\obj\Debug\net6.0\Healthcare.Application.pdb
 C:\Practicas\Healthcare\Healthcare\Healthcare.Application\obj\Debug\net6.0\ref\Healthcare.Application.dll
+C:\Practicas\Healthcare\Healthcare\Healthcare.Application\bin\Debug\net6.0\Healthcare.Domain.dll
+C:\Practicas\Healthcare\Healthcare\Healthcare.Application\bin\Debug\net6.0\Healthcare.Domain.pdb
+C:\Practicas\Healthcare\Healthcare\Healthcare.Application\obj\Debug\net6.0\Healthcare.Application.csproj.AssemblyReference.cache
+C:\Practicas\Healthcare\Healthcare\Healthcare.Application\obj\Debug\net6.0\Healthcare.Application.sourcelink.json
+C:\Practicas\Healthcare\Healthcare\Healthcare.Application\obj\Debug\net6.0\Healthca.EA43349D.Up2Date
