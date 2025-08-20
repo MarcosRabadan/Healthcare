@@ -1,3 +1,4 @@
+using Healthcare.Application.Services;
 using Healthcare.Domain.Repositories;
 using Healthcare.Infrastructure;
 using Healthcare.Infrastructure.Repositories;
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<HealthcareDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TestDatabase")));
 
 builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
+builder.Services.AddScoped<PacienteService>();
 
 var app = builder.Build();
 
