@@ -1,4 +1,6 @@
+using Healthcare.Domain.Repositories;
 using Healthcare.Infrastructure;
+using Healthcare.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -14,6 +16,8 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddDbContext<HealthcareDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TestDatabase")));
+
+builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
 
 var app = builder.Build();
 
