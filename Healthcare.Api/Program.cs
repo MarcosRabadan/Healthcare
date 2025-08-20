@@ -1,3 +1,5 @@
+using Healthcare.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,9 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Healthcare API", Version = "v1" });
 });
+
+builder.Services.AddDbContext<HealthcareDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TestDatabase")));
 
 var app = builder.Build();
 
