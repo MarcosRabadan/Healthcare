@@ -12,5 +12,8 @@ namespace Healthcare.Domain.Entities
         // Relaciones
         public Paciente? Paciente { get; set; }
         public Profesional? Profesional { get; set; }
+
+        // Borrado lógico
+        public bool IsDeleted { get; set; } = false;
     }
 }   

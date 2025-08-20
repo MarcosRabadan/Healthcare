@@ -19,5 +19,8 @@ namespace Healthcare.Domain.Entities
         public ICollection<Prescripcion> Prescripciones { get; set; } = new List<Prescripcion>();
         public ICollection<Consulta> Consultas { get; set; } = new List<Consulta>();
         public ICollection<Alergia> Alergias { get; set; } = new List<Alergia>();
+
+        // Borrado lógico
+        public bool IsDeleted { get; set; } = false;
     }
 }

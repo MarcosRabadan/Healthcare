@@ -12,5 +12,8 @@ namespace Healthcare.Domain.Entities
         // Relaciones
         public ICollection<Cita> Citas { get; set; } = new List<Cita>();
         public ICollection<Consulta> Consultas { get; set; } = new List<Consulta>();
+
+        // Borrado lógico
+        public bool IsDeleted { get; set; } = false;
     }
 }

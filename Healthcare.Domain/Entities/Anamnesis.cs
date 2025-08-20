@@ -11,5 +11,8 @@ namespace Healthcare.Domain.Entities
 
         // Relaciones
         public Consulta? Consulta { get; set; }
+
+        // Borrado lógico
+        public bool IsDeleted { get; set; } = false;
     }
 }

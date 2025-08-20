@@ -11,5 +11,8 @@ namespace Healthcare.Domain.Entities
 
         // Relaciones
         public ICollection<Prescripcion> Prescripciones { get; set; } = new List<Prescripcion>();
+
+        // Borrado lógico
+        public bool IsDeleted { get; set; } = false;
     }
 }

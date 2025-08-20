@@ -11,5 +11,8 @@ namespace Healthcare.Domain.Entities
         public Paciente? Paciente { get; set; }
         public Profesional? Profesional { get; set; }
         public Anamnesis? Anamnesis { get; set; }
+
+        // Borrado lógico
+        public bool IsDeleted { get; set; } = false;
     }
 }
