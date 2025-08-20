@@ -22,5 +22,16 @@ namespace Healthcare.Api.Controllers
             var pacientes = await _pacienteRepository.GetAllAsync();
             return Ok(pacientes);
         }
+        // GET: /api/pacientes/{id}
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Paciente>> GetPaciente(int id)
+        {
+            var paciente = await _pacienteRepository.GetByIdAsync(id);
+            if (paciente == null)
+            {
+                return NotFound();
+            }
+            return Ok(paciente);
+        }
     }
 }
