@@ -1,5 +1,5 @@
 using Healthcare.Domain.Entities;
-using Healthcare.Domain.Repositories;
+using Healthcare.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Healthcare.Api.Controllers
@@ -8,30 +8,39 @@ namespace Healthcare.Api.Controllers
     [Route("api/[controller]")]
     public class PacientesController : ControllerBase
     {
-        private readonly IPacienteRepository _pacienteRepository;
+        private readonly PacienteService _pacienteService;
 
-        public PacientesController(IPacienteRepository pacienteRepository)
+        public PacientesController(PacienteService pacienteService)
         {
-            _pacienteRepository = pacienteRepository;
+            _pacienteService = pacienteService;
         }
 
         // GET: /api/pacientes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Paciente>>> GetPacientes()
         {
-            var pacientes = await _pacienteRepository.GetAllAsync();
+            var pacientes = await _pacienteService.GetAllAsync();
             return Ok(pacientes);
         }
+
         // GET: /api/pacientes/{id}
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Paciente>> GetPaciente(int id)
         {
-            var paciente = await _pacienteRepository.GetByIdAsync(id);
+            var paciente = await _pacienteService.GetByIdAsync(id);
             if (paciente == null)
             {
                 return NotFound();
             }
             return Ok(paciente);
+        }
+
+        // POST: /api/pacientes     
+        [HttpPost]
+        public async Task<ActionResult<Paciente>> CreatePaciente([FromBody] Paciente paciente)
+        {
+            var created = await _pacienteService.CreateAsync(paciente);
+            return CreatedAtAction(nameof(GetPaciente), new { id = created.Id }, created);
         }
     }
 }
