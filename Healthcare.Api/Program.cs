@@ -23,6 +23,7 @@ builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
 builder.Services.AddScoped<PacienteService>();
 builder.Services.AddAutoMapper(typeof(PacienteProfile).Assembly);
 builder.Services.AddAutoMapper(typeof(AlergiaProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(AnamnesisProfile).Assembly);
 
 
 var app = builder.Build();
