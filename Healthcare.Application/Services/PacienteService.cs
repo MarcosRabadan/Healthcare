@@ -1,3 +1,4 @@
+using AutoMapper;
 using Healthcare.Domain.Entities;
 using Healthcare.Domain.Repositories;
 using System.Collections.Generic;
@@ -8,10 +9,11 @@ namespace Healthcare.Application.Services
     public class PacienteService
     {
         private readonly IPacienteRepository _pacienteRepository;
-
-        public PacienteService(IPacienteRepository pacienteRepository)
+        private readonly IMapper _mapper;
+        public PacienteService(IPacienteRepository pacienteRepository, IMapper mapper)
         {
             _pacienteRepository = pacienteRepository;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<Paciente>> GetAllAsync()
@@ -25,11 +27,26 @@ namespace Healthcare.Application.Services
             return await _pacienteRepository.GetByIdAsync(id);
         }
 
+
         public async Task<Paciente> CreateAsync(Paciente paciente)
         {
             await _pacienteRepository.AddAsync(paciente);
             await _pacienteRepository.SaveChangesAsync();
             return paciente;
+        }
+
+
+        public async Task<bool> UpdateAsync(int id, Paciente paciente)
+        {
+            var existing = await _pacienteRepository.GetByIdAsync(id);
+            if (existing == null)
+                return false;
+
+            _mapper.Map(paciente, existing);
+
+            _pacienteRepository.Update(existing);
+            await _pacienteRepository.SaveChangesAsync();
+            return true;
         }
     }
 }
