@@ -1,6 +1,8 @@
 using AutoMapper;
 using Healthcare.Domain.Entities;
 using Healthcare.Domain.Repositories;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Healthcare.Application.Services
@@ -19,6 +21,11 @@ namespace Healthcare.Application.Services
         public async Task<Alergia?> GetByIdAsync(int id)
         {
             return await _alergiaRepository.GetByIdAsync(id);
+        }
+
+        public async Task<IEnumerable<Alergia>> GetAllAsync()
+        {
+            return await _alergiaRepository.GetAllAsync();
         }
 
         public async Task<Alergia> CreateAsync(Alergia alergia)

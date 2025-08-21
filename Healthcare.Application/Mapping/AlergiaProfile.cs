@@ -1,7 +1,7 @@
 using AutoMapper;
 using Healthcare.Domain.Entities;
 
-namespace Healthcare.Application.Mappings
+namespace Healthcare.Application.Mapping
 {
     public class AlergiaProfile : Profile
     {

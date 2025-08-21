@@ -16,6 +16,14 @@ namespace Healthcare.Api.Controllers
             _alergiaService = alergiaService;
         }
 
+        // GET: /api/alergias
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Alergia>>> GetAlergias()
+        {
+            var alergias = await _alergiaService.GetAllAsync();
+            return Ok(alergias);
+        }
+
         // GET: /api/alergias/{id}
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Alergia>> GetAlergia(int id)
