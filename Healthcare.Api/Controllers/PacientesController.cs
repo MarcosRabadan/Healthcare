@@ -53,5 +53,16 @@ namespace Healthcare.Api.Controllers
 
             return NoContent();
         }
+
+        // DELETE: /api/pacientes/{id}
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeletePaciente(int id)
+        {
+            var deleted = await _pacienteService.DeleteAsync(id);
+            if (!deleted)
+                return NotFound();
+
+            return NoContent();
+        }
     }
 }

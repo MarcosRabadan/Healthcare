@@ -48,5 +48,17 @@ namespace Healthcare.Application.Services
             await _pacienteRepository.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var paciente = await _pacienteRepository.GetByIdAsync(id);
+            if (paciente == null)
+                return false;
+
+            paciente.IsDeleted = true;
+            _pacienteRepository.Update(paciente);
+            await _pacienteRepository.SaveChangesAsync();
+            return true;
+        }
     }
 }
