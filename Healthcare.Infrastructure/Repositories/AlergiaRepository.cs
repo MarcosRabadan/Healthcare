@@ -20,7 +20,7 @@ namespace Healthcare.Infrastructure.Repositories
         {
             return await _context.Alergias
                 .Include(a => a.Paciente)
-                .FirstOrDefaultAsync(a => a.Id == id && !a.IsDeleted);
+                .FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public async Task<IEnumerable<Alergia>> GetAllAsync()
