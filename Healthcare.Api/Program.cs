@@ -26,17 +26,26 @@ builder.Services.AddScoped<IAnamnesisRepository, AnamnesisRepository>();
 builder.Services.AddScoped<ICitaRepository, CitaRepository>();
 builder.Services.AddScoped<IPrescripcionRepository, PrescripcionRepository>();
 
+builder.Services.AddScoped<IConsultaRepository, ConsultaRepository>();
+builder.Services.AddScoped<IMedicamentoRepository, MedicamentoRepository>();
+builder.Services.AddScoped<IProfesionalRepository, ProfesionalRepository>();
+
 builder.Services.AddScoped<PacienteService>();
 builder.Services.AddScoped<AlergiaService>();
 builder.Services.AddScoped<AnamnesisService>();
 builder.Services.AddScoped<CitaService>();
 builder.Services.AddScoped<PrescripcionService>();
+builder.Services.AddScoped<ConsultaService>();
+builder.Services.AddScoped<MedicamentoService>();
+builder.Services.AddScoped<ProfesionalService>();
 
 builder.Services.AddAutoMapper(typeof(PacienteProfile).Assembly);
 builder.Services.AddAutoMapper(typeof(AlergiaProfile).Assembly);
 builder.Services.AddAutoMapper(typeof(AnamnesisProfile).Assembly);
 builder.Services.AddAutoMapper(typeof(CitaProfile).Assembly);
-
+builder.Services.AddAutoMapper(typeof(ConsultaProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(MedicamentoProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(ProfesionalProfile).Assembly);
 
 builder.Services.AddAutoMapper(typeof(PrescripcionProfile).Assembly);
 
