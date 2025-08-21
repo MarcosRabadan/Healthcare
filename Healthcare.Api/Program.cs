@@ -4,6 +4,7 @@ using Healthcare.Infrastructure;
 using Healthcare.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Healthcare.Application.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,7 @@ builder.Services.AddDbContext<HealthcareDbContext>(options =>
 
 builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
 builder.Services.AddScoped<PacienteService>();
-
+builder.Services.AddAutoMapper(typeof(PacienteProfile).Assembly);
 var app = builder.Build();
 
 // Configura el pipeline HTTP
