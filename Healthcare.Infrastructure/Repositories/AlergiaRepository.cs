@@ -1,6 +1,8 @@
 using Healthcare.Domain.Entities;
 using Healthcare.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Healthcare.Infrastructure.Repositories
@@ -18,25 +20,35 @@ namespace Healthcare.Infrastructure.Repositories
         {
             return await _context.Alergias
                 .Include(a => a.Paciente)
-                .FirstOrDefaultAsync(a => a.Id == id);
+                .FirstOrDefaultAsync(a => a.Id == id && !a.IsDeleted);
+        }
+
+        public async Task<IEnumerable<Alergia>> GetAllAsync()
+        {
+            return await _context.Alergias
+                .Include(a => a.Paciente)
+                .ToListAsync();
         }
 
         public async Task AddAsync(Alergia alergia)
         {
             await _context.Alergias.AddAsync(alergia);
         }
+
         public void Update(Alergia alergia)
         {
             _context.Alergias.Update(alergia);
         }
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
+
         public void Delete(Alergia alergia)
         {
             alergia.IsDeleted = true;
             _context.Alergias.Update(alergia);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }
