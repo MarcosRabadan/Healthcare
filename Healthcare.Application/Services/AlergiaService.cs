@@ -38,6 +38,7 @@ namespace Healthcare.Application.Services
 
             _alergiaRepository.Update(existing);
             await _alergiaRepository.SaveChangesAsync();
+
             return true;
         }
         public async Task<bool> DeleteAsync(int id)
