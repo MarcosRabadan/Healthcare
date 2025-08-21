@@ -12,6 +12,10 @@ namespace Healthcare.Application.Services
         {
             _alergiaRepository = alergiaRepository;
         }
+        public async Task<Alergia?> GetByIdAsync(int id)
+        {
+            return await _alergiaRepository.GetByIdAsync(id);
+        }
 
         public async Task<Alergia> CreateAsync(Alergia alergia)
         {
