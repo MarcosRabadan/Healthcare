@@ -33,5 +33,10 @@ namespace Healthcare.Infrastructure.Repositories
         {
             await _context.SaveChangesAsync();
         }
+        public void Delete(Alergia alergia)
+        {
+            alergia.IsDeleted = true;
+            _context.Alergias.Update(alergia);
+        }
     }
 }

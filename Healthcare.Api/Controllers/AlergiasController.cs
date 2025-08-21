@@ -45,5 +45,15 @@ namespace Healthcare.Api.Controllers
 
             return NoContent();
         }
+        // DELETE: /api/alergias/{id}
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteAlergia(int id)
+        {
+            var deleted = await _alergiaService.DeleteAsync(id);
+            if (!deleted)
+                return NotFound();
+
+            return NoContent();
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace Healthcare.Domain.Repositories
         Task<Alergia?> GetByIdAsync(int id);
         Task AddAsync(Alergia alergia);
         void Update(Alergia alergia);
+        void Delete(Alergia alergia);
         Task SaveChangesAsync();
     }
 }

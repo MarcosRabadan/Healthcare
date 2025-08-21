@@ -38,6 +38,20 @@ namespace Healthcare.Application.Services
 
             _alergiaRepository.Update(existing);
             await _alergiaRepository.SaveChangesAsync();
+
+            return true;
+        }
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var alergia = await _alergiaRepository.GetByIdAsync(id);
+
+            if (alergia == null)
+                return false;
+
+            alergia.IsDeleted = true;
+            _alergiaRepository.Update(alergia);
+
+            await _alergiaRepository.SaveChangesAsync();
             return true;
         }
     }
