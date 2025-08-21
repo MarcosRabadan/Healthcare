@@ -34,5 +34,16 @@ namespace Healthcare.Api.Controllers
             var created = await _alergiaService.CreateAsync(alergia);
             return CreatedAtAction(nameof(GetAlergia), new { id = created.Id }, created);
         }
+
+        // PUT: /api/alergias/{id}
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateAlergia(int id, [FromBody] Alergia alergia)
+        {
+            var updated = await _alergiaService.UpdateAsync(id, alergia);
+            if (!updated)
+                return NotFound();
+
+            return NoContent();
+        }
     }
 }

@@ -25,7 +25,10 @@ namespace Healthcare.Infrastructure.Repositories
         {
             await _context.Alergias.AddAsync(alergia);
         }
-        
+        public void Update(Alergia alergia)
+        {
+            _context.Alergias.Update(alergia);
+        }
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
