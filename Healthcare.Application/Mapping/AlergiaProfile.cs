@@ -1,5 +1,6 @@
 using AutoMapper;
 using Healthcare.Domain.Entities;
+using Healthcare.Application.DTOs;
 
 namespace Healthcare.Application.Mapping
 {
@@ -7,9 +8,7 @@ namespace Healthcare.Application.Mapping
     {
         public AlergiaProfile()
         {
-            CreateMap<Alergia, Alergia>()
-                .ForMember(dest => dest.Id, opt => opt.Ignore()) 
-                .ForMember(dest => dest.Paciente, opt => opt.Ignore()); 
+            CreateMap<Alergia, AlergiaDto>().ReverseMap();
         }
     }
 }
