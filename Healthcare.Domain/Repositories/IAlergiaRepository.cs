@@ -6,6 +6,7 @@ namespace Healthcare.Domain.Repositories
 {
     public interface IAlergiaRepository
     {
+        Task<Alergia?> GetByIdAsync(int id);
         Task AddAsync(Alergia alergia);
         Task SaveChangesAsync();
     }
