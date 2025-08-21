@@ -24,18 +24,21 @@ builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
 builder.Services.AddScoped<IAlergiaRepository, AlergiaRepository>();
 builder.Services.AddScoped<IAnamnesisRepository, AnamnesisRepository>();
 builder.Services.AddScoped<ICitaRepository, CitaRepository>();
-
+builder.Services.AddScoped<IPrescripcionRepository, PrescripcionRepository>();
 
 builder.Services.AddScoped<PacienteService>();
 builder.Services.AddScoped<AlergiaService>();
 builder.Services.AddScoped<AnamnesisService>();
 builder.Services.AddScoped<CitaService>();
-
+builder.Services.AddScoped<PrescripcionService>();
 
 builder.Services.AddAutoMapper(typeof(PacienteProfile).Assembly);
 builder.Services.AddAutoMapper(typeof(AlergiaProfile).Assembly);
 builder.Services.AddAutoMapper(typeof(AnamnesisProfile).Assembly);
 builder.Services.AddAutoMapper(typeof(CitaProfile).Assembly);
+
+
+builder.Services.AddAutoMapper(typeof(PrescripcionProfile).Assembly);
 
 var app = builder.Build();
 
