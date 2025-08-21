@@ -1,10 +1,12 @@
+using Healthcare.Domain.Enums;
+
 namespace Healthcare.Domain.Entities
 {
     public class Alergia
     {
         public int Id { get; set; }
         public int PacienteId { get; set; }
-        public string Tipo { get; set; } = string.Empty;
+        public TipoAlergia Tipo { get; set; }
         public string Descripcion { get; set; } = string.Empty;
         public DateTime FechaDiagnostico { get; set; }
         public string Severidad { get; set; } = string.Empty;
