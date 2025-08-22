@@ -1,3 +1,4 @@
+using Healthcare.Application.DTOs;
 using Healthcare.Application.Services;
 using Healthcare.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -18,14 +19,14 @@ namespace Healthcare.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Medicamento>>> GetMedicamentos()
+        public async Task<ActionResult<IEnumerable<MedicamentoDto>>> GetMedicamentos()
         {
             var medicamentos = await _medicamentoService.GetAllAsync();
             return Ok(medicamentos);
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Medicamento>> GetMedicamento(int id)
+        public async Task<ActionResult<MedicamentoDto>> GetMedicamento(int id)
         {
             var medicamento = await _medicamentoService.GetByIdAsync(id);
             if (medicamento == null)
@@ -34,14 +35,14 @@ namespace Healthcare.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Medicamento>> CreateMedicamento([FromBody] Medicamento medicamento)
+        public async Task<ActionResult<MedicamentoDto>> CreateMedicamento([FromBody] MedicamentoDto medicamento)
         {
             var created = await _medicamentoService.CreateAsync(medicamento);
             return CreatedAtAction(nameof(GetMedicamento), new { id = created.Id }, created);
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateMedicamento(int id, [FromBody] Medicamento medicamento)
+        public async Task<IActionResult> UpdateMedicamento(int id, [FromBody] MedicamentoDto medicamento)
         {
             var updated = await _medicamentoService.UpdateAsync(id, medicamento);
             if (!updated)

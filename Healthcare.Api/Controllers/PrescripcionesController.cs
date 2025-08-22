@@ -1,3 +1,4 @@
+using Healthcare.Application.DTOs;
 using Healthcare.Application.Services;
 using Healthcare.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -18,14 +19,14 @@ namespace Healthcare.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Prescripcion>>> GetPrescripciones()
+        public async Task<ActionResult<IEnumerable<PrescripcionDto>>> GetPrescripciones()
         {
             var prescripciones = await _prescripcionService.GetAllAsync();
             return Ok(prescripciones);
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Prescripcion>> GetPrescripcion(int id)
+        public async Task<ActionResult<PrescripcionDto>> GetPrescripcion(int id)
         {
             var prescripcion = await _prescripcionService.GetByIdAsync(id);
             if (prescripcion == null)
@@ -34,14 +35,14 @@ namespace Healthcare.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Prescripcion>> CreatePrescripcion([FromBody] Prescripcion prescripcion)
+        public async Task<ActionResult<PrescripcionDto>> CreatePrescripcion([FromBody] PrescripcionDto prescripcion)
         {
             var created = await _prescripcionService.CreateAsync(prescripcion);
             return CreatedAtAction(nameof(GetPrescripcion), new { id = created.Id }, created);
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdatePrescripcion(int id, [FromBody] Prescripcion prescripcion)
+        public async Task<IActionResult> UpdatePrescripcion(int id, [FromBody] PrescripcionDto prescripcion)
         {
             var updated = await _prescripcionService.UpdateAsync(id, prescripcion);
             if (!updated)

@@ -1,3 +1,4 @@
+using Healthcare.Application.DTOs;
 using Healthcare.Application.Services;
 using Healthcare.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -18,14 +19,14 @@ namespace Healthcare.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Profesional>>> GetProfesionales()
+        public async Task<ActionResult<IEnumerable<ProfesionalDto>>> GetProfesionales()
         {
             var profesionales = await _profesionalService.GetAllAsync();
             return Ok(profesionales);
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Profesional>> GetProfesional(int id)
+        public async Task<ActionResult<ProfesionalDto>> GetProfesional(int id)
         {
             var profesional = await _profesionalService.GetByIdAsync(id);
             if (profesional == null)
@@ -34,14 +35,14 @@ namespace Healthcare.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Profesional>> CreateProfesional([FromBody] Profesional profesional)
+        public async Task<ActionResult<ProfesionalDto>> CreateProfesional([FromBody] ProfesionalDto profesional)
         {
             var created = await _profesionalService.CreateAsync(profesional);
             return CreatedAtAction(nameof(GetProfesional), new { id = created.Id }, created);
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateProfesional(int id, [FromBody] Profesional profesional)
+        public async Task<IActionResult> UpdateProfesional(int id, [FromBody] ProfesionalDto profesional)
         {
             var updated = await _profesionalService.UpdateAsync(id, profesional);
             if (!updated)

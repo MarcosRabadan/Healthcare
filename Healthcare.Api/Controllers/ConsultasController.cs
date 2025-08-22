@@ -1,3 +1,4 @@
+using Healthcare.Application.DTOs;
 using Healthcare.Application.Services;
 using Healthcare.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -18,14 +19,14 @@ namespace Healthcare.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Consulta>>> GetConsultas()
+        public async Task<ActionResult<IEnumerable<ConsultaDto>>> GetConsultas()
         {
             var consultas = await _consultaService.GetAllAsync();
             return Ok(consultas);
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Consulta>> GetConsulta(int id)
+        public async Task<ActionResult<ConsultaDto>> GetConsulta(int id)
         {
             var consulta = await _consultaService.GetByIdAsync(id);
             if (consulta == null)
@@ -34,14 +35,14 @@ namespace Healthcare.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Consulta>> CreateConsulta([FromBody] Consulta consulta)
+        public async Task<ActionResult<ConsultaDto>> CreateConsulta([FromBody] ConsultaDto consulta)
         {
             var created = await _consultaService.CreateAsync(consulta);
             return CreatedAtAction(nameof(GetConsulta), new { id = created.Id }, created);
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateConsulta(int id, [FromBody] Consulta consulta)
+        public async Task<IActionResult> UpdateConsulta(int id, [FromBody] ConsultaDto consulta)
         {
             var updated = await _consultaService.UpdateAsync(id, consulta);
             if (!updated)

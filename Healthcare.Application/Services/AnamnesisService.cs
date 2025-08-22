@@ -1,4 +1,5 @@
 using AutoMapper;
+using Healthcare.Application.DTOs;
 using Healthcare.Domain.Entities;
 using Healthcare.Domain.Repositories;
 using System.Collections.Generic;
@@ -17,24 +18,27 @@ namespace Healthcare.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Anamnesis>> GetAllAsync()
+        public async Task<IEnumerable<AnamnesisDto>> GetAllAsync()
         {
-            return await _anamnesisRepository.GetAllAsync();
+            var anamesis = await _anamnesisRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<AnamnesisDto>>(anamesis);
         }
 
-        public async Task<Anamnesis?> GetByIdAsync(int id)
+        public async Task<AnamnesisDto?> GetByIdAsync(int id)
         {
-            return await _anamnesisRepository.GetByIdAsync(id);
+            var anamesis = await _anamnesisRepository.GetByIdAsync(id);
+            return anamesis == null ? null : _mapper.Map<AnamnesisDto>(anamesis);
         }
 
-        public async Task<Anamnesis> CreateAsync(Anamnesis anamnesis)
+        public async Task<AnamnesisDto> CreateAsync(AnamnesisDto anamnesisDto)
         {
+            var anamnesis = _mapper.Map<Anamnesis>(anamnesisDto);
             await _anamnesisRepository.AddAsync(anamnesis);
             await _anamnesisRepository.SaveChangesAsync();
-            return anamnesis;
+            return _mapper.Map<AnamnesisDto>(anamnesis);
         }
 
-        public async Task<bool> UpdateAsync(int id, Anamnesis anamnesis)
+        public async Task<bool> UpdateAsync(int id, AnamnesisDto anamnesis)
         {
             var existing = await _anamnesisRepository.GetByIdAsync(id);
             if (existing == null)
