@@ -1,4 +1,5 @@
 using AutoMapper;
+using Healthcare.Application.DTOs;
 using Healthcare.Domain.Entities;
 
 namespace Healthcare.Application.Mapping
@@ -7,10 +8,7 @@ namespace Healthcare.Application.Mapping
     {
         public ConsultaProfile()
         {
-            CreateMap<Consulta, Consulta>()
-                .ForMember(dest => dest.Id, opt => opt.Ignore())
-                .ForMember(dest => dest.Paciente, opt => opt.Ignore())
-                .ForMember(dest => dest.Profesional, opt => opt.Ignore());
+            CreateMap<Consulta, ConsultaDto>().ReverseMap();
         }
     }
 }

@@ -1,4 +1,5 @@
 using AutoMapper;
+using Healthcare.Application.DTOs;
 using Healthcare.Domain.Entities;
 using Healthcare.Domain.Repositories;
 using System.Collections.Generic;
@@ -17,24 +18,27 @@ namespace Healthcare.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Cita>> GetAllAsync()
+        public async Task<IEnumerable<CitaDto>> GetAllAsync()
         {
-            return await _citaRepository.GetAllAsync();
+            var citas = await _citaRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<CitaDto>>(citas);
         }
 
-        public async Task<Cita?> GetByIdAsync(int id)
+        public async Task<CitaDto?> GetByIdAsync(int id)
         {
-            return await _citaRepository.GetByIdAsync(id);
+            var cita = await _citaRepository.GetByIdAsync(id);
+            return cita == null ? null : _mapper.Map<CitaDto>(cita);
         }
 
-        public async Task<Cita> CreateAsync(Cita cita)
+        public async Task<CitaDto> CreateAsync(CitaDto citaDto)
         {
+            var cita = _mapper.Map<Cita>(citaDto);
             await _citaRepository.AddAsync(cita);
             await _citaRepository.SaveChangesAsync();
-            return cita;
+            return citaDto;
         }
 
-        public async Task<bool> UpdateAsync(int id, Cita cita)
+        public async Task<bool> UpdateAsync(int id, CitaDto cita)
         {
             var existing = await _citaRepository.GetByIdAsync(id);
             if (existing == null)

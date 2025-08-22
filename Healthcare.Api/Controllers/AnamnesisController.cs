@@ -1,3 +1,4 @@
+using Healthcare.Application.DTOs;
 using Healthcare.Application.Services;
 using Healthcare.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ namespace Healthcare.Api.Controllers
 
         // GET: /api/anamnesis
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Anamnesis>>> GetAnamnesis()
+        public async Task<ActionResult<IEnumerable<AnamnesisDto>>> GetAnamnesis()
         {
             var anamnesis = await _anamnesisService.GetAllAsync();
             return Ok(anamnesis);
@@ -27,7 +28,7 @@ namespace Healthcare.Api.Controllers
 
         // GET: /api/anamnesis/{id}
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Anamnesis>> GetAnamnesisById(int id)
+        public async Task<ActionResult<AnamnesisDto>> GetAnamnesisById(int id)
         {
             var anamnesis = await _anamnesisService.GetByIdAsync(id);
             if (anamnesis == null)
@@ -37,7 +38,7 @@ namespace Healthcare.Api.Controllers
 
         // POST: /api/anamnesis
         [HttpPost]
-        public async Task<ActionResult<Anamnesis>> CreateAnamnesis([FromBody] Anamnesis anamnesis)
+        public async Task<ActionResult<AnamnesisDto>> CreateAnamnesis([FromBody] AnamnesisDto anamnesis)
         {
             var created = await _anamnesisService.CreateAsync(anamnesis);
             return CreatedAtAction(nameof(GetAnamnesisById), new { id = created.Id }, created);
@@ -45,7 +46,7 @@ namespace Healthcare.Api.Controllers
 
         // PUT: /api/anamnesis/{id}
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateAnamnesis(int id, [FromBody] Anamnesis anamnesis)
+        public async Task<IActionResult> UpdateAnamnesis(int id, [FromBody] AnamnesisDto anamnesis)
         {
             var updated = await _anamnesisService.UpdateAsync(id, anamnesis);
             if (!updated)

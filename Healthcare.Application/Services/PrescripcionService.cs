@@ -1,4 +1,5 @@
 using AutoMapper;
+using Healthcare.Application.DTOs;
 using Healthcare.Domain.Entities;
 using Healthcare.Domain.Repositories;
 using System.Collections.Generic;
@@ -17,24 +18,27 @@ namespace Healthcare.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Prescripcion>> GetAllAsync()
+        public async Task<IEnumerable<PrescripcionDto>> GetAllAsync()
         {
-            return await _prescripcionRepository.GetAllAsync();
+            var prescripciones = await _prescripcionRepository.GetAllAsync();   
+            return _mapper.Map<IEnumerable<PrescripcionDto>>(prescripciones);
         }
 
-        public async Task<Prescripcion?> GetByIdAsync(int id)
+        public async Task<PrescripcionDto?> GetByIdAsync(int id)
         {
-            return await _prescripcionRepository.GetByIdAsync(id);
+            var prescripcion = await _prescripcionRepository.GetByIdAsync(id);
+            return _mapper.Map<PrescripcionDto?>(prescripcion);
         }
 
-        public async Task<Prescripcion> CreateAsync(Prescripcion prescripcion)
+        public async Task<PrescripcionDto> CreateAsync(PrescripcionDto prescripcionDto)
         {
+            var prescripcion = _mapper.Map<Prescripcion>(prescripcionDto);  
             await _prescripcionRepository.AddAsync(prescripcion);
             await _prescripcionRepository.SaveChangesAsync();
-            return prescripcion;
+            return _mapper.Map<PrescripcionDto>(prescripcion);  
         }
 
-        public async Task<bool> UpdateAsync(int id, Prescripcion prescripcion)
+        public async Task<bool> UpdateAsync(int id, PrescripcionDto prescripcion)
         {
             var existing = await _prescripcionRepository.GetByIdAsync(id);
             if (existing == null)

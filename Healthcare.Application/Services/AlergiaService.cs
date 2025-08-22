@@ -1,4 +1,5 @@
 using AutoMapper;
+using Healthcare.Application.DTOs;
 using Healthcare.Domain.Entities;
 using Healthcare.Domain.Repositories;
 using System.Collections.Generic;
@@ -18,9 +19,10 @@ namespace Healthcare.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<Alergia?> GetByIdAsync(int id)
+        public async Task<AlergiaDto?> GetByIdAsync(int id)
         {
-            return await _alergiaRepository.GetByIdAsync(id);
+            var alergia = await _alergiaRepository.GetByIdAsync(id);
+            return alergia == null ? null : _mapper.Map<AlergiaDto>(alergia);
         }
 
         public async Task<IEnumerable<Alergia>> GetAllAsync()
@@ -28,14 +30,15 @@ namespace Healthcare.Application.Services
             return await _alergiaRepository.GetAllAsync();
         }
 
-        public async Task<Alergia> CreateAsync(Alergia alergia)
+        public async Task<Alergia> CreateAsync(AlergiaDto alergiaDto)
         {
+            var alergia = _mapper.Map<Alergia>(alergiaDto);
             await _alergiaRepository.AddAsync(alergia);
             await _alergiaRepository.SaveChangesAsync();
             return alergia;
         }
 
-        public async Task<bool> UpdateAsync(int id, Alergia alergia)
+        public async Task<bool> UpdateAsync(int id, AlergiaDto alergia)
         {
             var existing = await _alergiaRepository.GetByIdAsync(id);
             if (existing == null)

@@ -1,5 +1,6 @@
 using AutoMapper;
 using Healthcare.Domain.Entities;
+using Healthcare.Application.DTOs;
 
 namespace Healthcare.Application.Mapping
 {
@@ -7,10 +8,7 @@ namespace Healthcare.Application.Mapping
     {
         public CitaProfile()
         {
-            CreateMap<Cita, Cita>()
-                .ForMember(dest => dest.Id, opt => opt.Ignore())
-                .ForMember(dest => dest.Paciente, opt => opt.Ignore())
-                .ForMember(dest => dest.Profesional, opt => opt.Ignore());
+            CreateMap<Cita, CitaDto>().ReverseMap();
         }
     }
 }

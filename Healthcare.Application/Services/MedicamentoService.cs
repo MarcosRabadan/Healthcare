@@ -1,4 +1,5 @@
 using AutoMapper;
+using Healthcare.Application.DTOs;
 using Healthcare.Domain.Entities;
 using Healthcare.Domain.Repositories;
 using System.Collections.Generic;
@@ -17,24 +18,28 @@ namespace Healthcare.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Medicamento>> GetAllAsync()
+        public async Task<IEnumerable<MedicamentoDto>> GetAllAsync()
         {
-            return await _medicamentoRepository.GetAllAsync();
+            var medicamento = await _medicamentoRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<MedicamentoDto>>(medicamento);
         }
 
-        public async Task<Medicamento?> GetByIdAsync(int id)
+        public async Task<MedicamentoDto?> GetByIdAsync(int id)
         {
-            return await _medicamentoRepository.GetByIdAsync(id);
+            var medicamento = await _medicamentoRepository.GetByIdAsync(id);
+            return medicamento == null ? null : _mapper.Map<MedicamentoDto?>(medicamento);
         }
 
-        public async Task<Medicamento> CreateAsync(Medicamento medicamento)
+        public async Task<MedicamentoDto> CreateAsync(MedicamentoDto medicamentoDto)
         {
+            var medicamento = _mapper.Map<Medicamento>(medicamentoDto);
             await _medicamentoRepository.AddAsync(medicamento);
             await _medicamentoRepository.SaveChangesAsync();
-            return medicamento;
+
+            return _mapper.Map<MedicamentoDto>(medicamento);
         }
 
-        public async Task<bool> UpdateAsync(int id, Medicamento medicamento)
+        public async Task<bool> UpdateAsync(int id, MedicamentoDto medicamento)
         {
             var existing = await _medicamentoRepository.GetByIdAsync(id);
             if (existing == null)

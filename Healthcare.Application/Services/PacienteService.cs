@@ -1,4 +1,5 @@
 using AutoMapper;
+using Healthcare.Application.DTOs;
 using Healthcare.Domain.Entities;
 using Healthcare.Domain.Repositories;
 using System.Collections.Generic;
@@ -16,27 +17,30 @@ namespace Healthcare.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Paciente>> GetAllAsync()
+        public async Task<IEnumerable<PacienteDto>> GetAllAsync()
         {
-            return await _pacienteRepository.GetAllAsync();
+            var pacientes = await _pacienteRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<PacienteDto>>(pacientes);
         }
 
 
-        public async Task<Paciente?> GetByIdAsync(int id)
+        public async Task<PacienteDto?> GetByIdAsync(int id)
         {
-            return await _pacienteRepository.GetByIdAsync(id);
+            var paciente = await _pacienteRepository.GetByIdAsync(id);
+            return paciente == null ? null : _mapper.Map<PacienteDto?>(paciente);
         }
 
 
-        public async Task<Paciente> CreateAsync(Paciente paciente)
+        public async Task<PacienteDto> CreateAsync(PacienteDto pacienteDto)
         {
+            var paciente = _mapper.Map<Paciente>(pacienteDto);
             await _pacienteRepository.AddAsync(paciente);
             await _pacienteRepository.SaveChangesAsync();
-            return paciente;
+            return _mapper.Map<PacienteDto>(paciente);
         }
 
 
-        public async Task<bool> UpdateAsync(int id, Paciente paciente)
+        public async Task<bool> UpdateAsync(int id, PacienteDto paciente)
         {
             var existing = await _pacienteRepository.GetByIdAsync(id);
             if (existing == null)
