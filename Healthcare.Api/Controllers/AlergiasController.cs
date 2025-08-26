@@ -1,4 +1,5 @@
-using Healthcare.Application.DTOs;
+using Healthcare.Application.DTOs.Responses;
+using Healthcare.Application.DTOs.Requests;
 using Healthcare.Application.Services;
 using Healthcare.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -19,15 +20,15 @@ namespace Healthcare.Api.Controllers
 
         // GET: /api/alergias
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AlergiaDto>>> GetAlergias()
+        public async Task<ActionResult<IEnumerable<AlergiaRequestDto>>> GetAlergias()
         {
             var alergias = await _alergiaService.GetAllAsync();
             return Ok(alergias);
-        }
+        }  
 
         // GET: /api/alergias/{id}
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<AlergiaDto>> GetAlergia(int id)
+        public async Task<ActionResult<AlergiaResponseDto>> GetAlergia(int id)
         {
             var alergia = await _alergiaService.GetByIdAsync(id);
             if (alergia == null)
@@ -38,15 +39,19 @@ namespace Healthcare.Api.Controllers
 
         // POST: /api/alergias
         [HttpPost]
-        public async Task<ActionResult<AlergiaDto>> CreateAlergia([FromBody] AlergiaDto alergiaDto)
+        public async Task<ActionResult<AlergiaResponseDto>> CreateAlergia([FromBody] AlergiaRequestDto alergiaDto)
         {
-            var created = await _alergiaService.CreateAsync(alergiaDto);
-            return CreatedAtAction(nameof(GetAlergia), new { id = created.Id }, created);
+            var result = await _alergiaService.CreateAsync(alergiaDto);
+
+            if (result.Error != null)
+                return BadRequest(result.Error);
+
+            return CreatedAtAction(nameof(GetAlergia), new { id = result.Created!.Id }, result.Created);
         }
 
         // PUT: /api/alergias/{id}
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateAlergia(int id, [FromBody] AlergiaDto alergia)
+        public async Task<IActionResult> UpdateAlergia(int id, [FromBody] AlergiaRequestDto alergia)
         {
             var updated = await _alergiaService.UpdateAsync(id, alergia);
             if (!updated)

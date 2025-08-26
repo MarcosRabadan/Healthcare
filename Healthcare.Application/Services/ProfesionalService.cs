@@ -1,5 +1,6 @@
 using AutoMapper;
-using Healthcare.Application.DTOs;
+using Healthcare.Application.DTOs.Requests;
+using Healthcare.Application.DTOs.Responses;
 using Healthcare.Domain.Entities;
 using Healthcare.Domain.Repositories;
 using System.Collections.Generic;
@@ -18,27 +19,27 @@ namespace Healthcare.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ProfesionalDto>> GetAllAsync()
+        public async Task<IEnumerable<ProfesionalResponseDto>> GetAllAsync()
         {
             var profesionales = await _profesionalRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<ProfesionalDto>>(profesionales);
+            return _mapper.Map<IEnumerable<ProfesionalResponseDto>>(profesionales);
         }
 
-        public async Task<ProfesionalDto?> GetByIdAsync(int id)
+        public async Task<ProfesionalResponseDto?> GetByIdAsync(int id)
         {
             var profesional = await _profesionalRepository.GetByIdAsync(id);
-            return profesional == null ? null : _mapper.Map<ProfesionalDto?>(profesional);
+            return profesional == null ? null : _mapper.Map<ProfesionalResponseDto?>(profesional);
         }
 
-        public async Task<ProfesionalDto> CreateAsync(ProfesionalDto profesionalDto)
+        public async Task<ProfesionalResponseDto> CreateAsync(ProfesionalRequestDto profesionalDto)
         {
             var profesional = _mapper.Map<Profesional>(profesionalDto);
             await _profesionalRepository.AddAsync(profesional);
             await _profesionalRepository.SaveChangesAsync();
-            return _mapper.Map<ProfesionalDto>(profesional);
+            return _mapper.Map<ProfesionalResponseDto>(profesional);
         }
 
-        public async Task<bool> UpdateAsync(int id, ProfesionalDto profesional)
+        public async Task<bool> UpdateAsync(int id, ProfesionalRequestDto profesional)
         {
             var existing = await _profesionalRepository.GetByIdAsync(id);
             if (existing == null)

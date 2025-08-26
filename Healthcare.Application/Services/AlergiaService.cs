@@ -1,6 +1,9 @@
 using AutoMapper;
-using Healthcare.Application.DTOs;
+using Healthcare.Application.Constants;
+using Healthcare.Application.DTOs.Responses;
+using Healthcare.Application.DTOs.Requests;
 using Healthcare.Domain.Entities;
+using Healthcare.Domain.Enums;
 using Healthcare.Domain.Repositories;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,26 +22,34 @@ namespace Healthcare.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<AlergiaDto?> GetByIdAsync(int id)
+        public async Task<AlergiaResponseDto?> GetByIdAsync(int id)
         {
             var alergia = await _alergiaRepository.GetByIdAsync(id);
-            return alergia == null ? null : _mapper.Map<AlergiaDto>(alergia);
+            return alergia == null ? null : _mapper.Map<AlergiaResponseDto>(alergia);
         }
 
-        public async Task<IEnumerable<Alergia>> GetAllAsync()
+        public async Task<IEnumerable<AlergiaResponseDto>> GetAllAsync()
         {
-            return await _alergiaRepository.GetAllAsync();
+            var alergia = await _alergiaRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<AlergiaResponseDto>>(alergia.ToList());
         }
 
-        public async Task<Alergia> CreateAsync(AlergiaDto alergiaDto)
+        public async Task<(AlergiaResponseDto? Created, ErrorResponseDto? Error)> CreateAsync(AlergiaRequestDto alergiaDto)
         {
+            if (!Enum.IsDefined(typeof(TipoAlergia), alergiaDto.Tipo.Value))            
+                return (null, ErrorMessages.TipoAlergiaInvalido);
+            
+
             var alergia = _mapper.Map<Alergia>(alergiaDto);
+
             await _alergiaRepository.AddAsync(alergia);
             await _alergiaRepository.SaveChangesAsync();
-            return alergia;
+
+            var createdDto = _mapper.Map<AlergiaResponseDto>(alergia);
+            return (createdDto, null);
         }
 
-        public async Task<bool> UpdateAsync(int id, AlergiaDto alergia)
+        public async Task<bool> UpdateAsync(int id, AlergiaRequestDto alergia)
         {
             var existing = await _alergiaRepository.GetByIdAsync(id);
             if (existing == null)

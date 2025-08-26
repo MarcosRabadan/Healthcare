@@ -45,5 +45,14 @@ namespace Healthcare.Infrastructure.Repositories
         {
             await _context.SaveChangesAsync();
         }
+
+        public async Task<bool> ExistNumeroHistoriaClinicaAsync(string code)
+        {
+            return await _context.Pacientes.AnyAsync(p => p.NumeroHistoriaClinica == code);
+        }
+        public async Task<bool> ExistEmailAsync(string email)
+        {
+            return await _context.Pacientes.AnyAsync(p => p.Email == email);
+        }
     }
 }

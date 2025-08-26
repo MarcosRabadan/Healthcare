@@ -1,5 +1,6 @@
 using AutoMapper;
-using Healthcare.Application.DTOs;
+using Healthcare.Application.DTOs.Requests;
+using Healthcare.Application.DTOs.Responses;
 using Healthcare.Domain.Entities;
 using Healthcare.Domain.Repositories;
 using System.Collections.Generic;
@@ -18,27 +19,27 @@ namespace Healthcare.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<AnamnesisDto>> GetAllAsync()
+        public async Task<IEnumerable<AnamnesisResponseDto>> GetAllAsync()
         {
             var anamesis = await _anamnesisRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<AnamnesisDto>>(anamesis);
+            return _mapper.Map<IEnumerable<AnamnesisResponseDto>>(anamesis);
         }
 
-        public async Task<AnamnesisDto?> GetByIdAsync(int id)
+        public async Task<AnamnesisResponseDto?> GetByIdAsync(int id)
         {
             var anamesis = await _anamnesisRepository.GetByIdAsync(id);
-            return anamesis == null ? null : _mapper.Map<AnamnesisDto>(anamesis);
+            return anamesis == null ? null : _mapper.Map<AnamnesisResponseDto>(anamesis);
         }
 
-        public async Task<AnamnesisDto> CreateAsync(AnamnesisDto anamnesisDto)
+        public async Task<AnamnesisResponseDto> CreateAsync(AnamnesisRequestDto anamnesisDto)
         {
             var anamnesis = _mapper.Map<Anamnesis>(anamnesisDto);
             await _anamnesisRepository.AddAsync(anamnesis);
             await _anamnesisRepository.SaveChangesAsync();
-            return _mapper.Map<AnamnesisDto>(anamnesis);
+            return _mapper.Map<AnamnesisResponseDto>(anamnesis);
         }
 
-        public async Task<bool> UpdateAsync(int id, AnamnesisDto anamnesis)
+        public async Task<bool> UpdateAsync(int id, AnamnesisRequestDto anamnesis)
         {
             var existing = await _anamnesisRepository.GetByIdAsync(id);
             if (existing == null)

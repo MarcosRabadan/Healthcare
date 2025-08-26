@@ -1,7 +1,8 @@
 using Healthcare.Domain.Entities;
 using Healthcare.Application.Services;
 using Microsoft.AspNetCore.Mvc;
-using Healthcare.Application.DTOs;
+using Healthcare.Application.DTOs.Responses;
+using Healthcare.Application.DTOs.Requests;
 
 namespace Healthcare.Api.Controllers
 {
@@ -18,7 +19,7 @@ namespace Healthcare.Api.Controllers
 
         // GET: /api/pacientes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PacienteDto>>> GetPacientes()
+        public async Task<ActionResult<IEnumerable<PacienteResponseDto>>> GetPacientes()
         {
             var pacientes = await _pacienteService.GetAllAsync();
             return Ok(pacientes);
@@ -26,7 +27,7 @@ namespace Healthcare.Api.Controllers
 
         // GET: /api/pacientes/{id}
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<PacienteDto>> GetPaciente(int id)
+        public async Task<ActionResult<PacienteResponseDto>> GetPaciente(int id)
         {
             var paciente = await _pacienteService.GetByIdAsync(id);
             if (paciente == null)
@@ -38,15 +39,19 @@ namespace Healthcare.Api.Controllers
 
         // POST: /api/pacientes     
         [HttpPost]
-        public async Task<ActionResult<PacienteDto>> CreatePaciente([FromBody] PacienteDto paciente)
+        public async Task<ActionResult<PacienteResponseDto>> CreatePaciente([FromBody] PacienteRequestDto paciente)
         {
-            var created = await _pacienteService.CreateAsync(paciente);
-            return CreatedAtAction(nameof(GetPaciente), new { id = created.Id }, created);
+            var result = await _pacienteService.CreateAsync(paciente);
+
+            if (result.Error != null)
+                return BadRequest(result.Error);
+
+            return CreatedAtAction(nameof(GetPaciente), new { id = result.Created!.Id }, result.Created);
         }
 
         // PUT: /api/pacientes/{id}
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdatePaciente(int id, [FromBody] PacienteDto paciente)
+        public async Task<IActionResult> UpdatePaciente(int id, [FromBody] PacienteRequestDto paciente)
         {
             var updated = await _pacienteService.UpdateAsync(id, paciente);
             if (!updated)
