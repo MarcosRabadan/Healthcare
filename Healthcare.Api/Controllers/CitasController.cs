@@ -1,4 +1,5 @@
-using Healthcare.Application.DTOs;
+using Healthcare.Application.DTOs.Requests;
+using Healthcare.Application.DTOs.Responses;
 using Healthcare.Application.Services;
 using Healthcare.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -19,14 +20,14 @@ namespace Healthcare.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CitaDto>>> GetCitas()
+        public async Task<ActionResult<IEnumerable<CitaResponseDto>>> GetCitas()
         {
             var citas = await _citaService.GetAllAsync();
             return Ok(citas);
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<CitaDto>> GetCita(int id)
+        public async Task<ActionResult<CitaResponseDto>> GetCita(int id)
         {
             var cita = await _citaService.GetByIdAsync(id);
             if (cita == null)
@@ -35,14 +36,19 @@ namespace Healthcare.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CitaDto>> CreateCita([FromBody] CitaDto cita)
+        public async Task<ActionResult<CitaResponseDto>> CreateCita([FromBody] CitaRequestDto cita)
         {
-            var created = await _citaService.CreateAsync(cita);
-            return CreatedAtAction(nameof(GetCita), new { id = created.Id }, created);
-        }
+            var result = await _citaService.CreateAsync(cita);
 
+            if (result.Error != null)
+                return BadRequest(result.Error);
+
+            return CreatedAtAction(nameof(GetCita), new { id = result.Created!.Id }, result.Created);
+        }  
+        
+   
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateCita(int id, [FromBody] CitaDto cita)
+        public async Task<IActionResult> UpdateCita(int id, [FromBody] CitaRequestDto cita)
         {
             var updated = await _citaService.UpdateAsync(id, cita);
             if (!updated)

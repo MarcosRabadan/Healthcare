@@ -12,5 +12,7 @@ namespace Healthcare.Domain.Repositories
         void Update(Paciente paciente);
         void Delete(Paciente paciente);
         Task SaveChangesAsync();
+        Task<bool> ExistNumeroHistoriaClinicaAsync(string id);
+        Task<bool> ExistEmailAsync(string email);
     }
 }

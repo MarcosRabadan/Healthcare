@@ -1,6 +1,7 @@
 using AutoMapper;
+using Healthcare.Application.DTOs.Requests;
+using Healthcare.Application.DTOs.Responses;
 using Healthcare.Domain.Entities;
-using Healthcare.Application.DTOs;
 
 namespace Healthcare.Application.Mapping
 {
@@ -8,7 +9,9 @@ namespace Healthcare.Application.Mapping
     {
         public MedicamentoProfile()
         {
-            CreateMap<Medicamento, MedicamentoDto>().ReverseMap();
+            CreateMap<MedicamentoRequestDto, Medicamento>();
+
+            CreateMap<Medicamento, MedicamentoResponseDto>();
         }
     }
 }
