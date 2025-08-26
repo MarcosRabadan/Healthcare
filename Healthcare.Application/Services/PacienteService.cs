@@ -55,17 +55,24 @@ namespace Healthcare.Application.Services
         }
 
 
-        public async Task<bool> UpdateAsync(int id, PacienteRequestDto paciente)
+        public async Task<(bool Success, ErrorResponseDto? Error)> UpdateAsync(int id, PacienteRequestDto paciente)
         {
             var existing = await _pacienteRepository.GetByIdAsync(id);
             if (existing == null)
-                return false;
+                return (false, null);
+
+            if (!string.Equals(existing.Email, paciente.Email, StringComparison.OrdinalIgnoreCase))
+            {
+                var emailError = await ValidarEmailUnicoAsync(paciente.Email);
+                if (emailError != null)
+                    return (false, emailError);
+            }
 
             _mapper.Map(paciente, existing);
 
             _pacienteRepository.Update(existing);
             await _pacienteRepository.SaveChangesAsync();
-            return true;
+            return (true, null);
         }
 
         public async Task<bool> DeleteAsync(int id)

@@ -53,8 +53,12 @@ namespace Healthcare.Api.Controllers
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdatePaciente(int id, [FromBody] PacienteRequestDto paciente)
         {
-            var updated = await _pacienteService.UpdateAsync(id, paciente);
-            if (!updated)
+            var result = await _pacienteService.UpdateAsync(id, paciente);
+
+            if (result.Error != null)
+                return BadRequest(result.Error);
+
+            if (!result.Success)
                 return NotFound();
 
             return NoContent();
