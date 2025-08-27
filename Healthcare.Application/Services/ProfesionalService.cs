@@ -3,63 +3,61 @@ using Healthcare.Application.DTOs.Requests;
 using Healthcare.Application.DTOs.Responses;
 using Healthcare.Domain.Entities;
 using Healthcare.Domain.Repositories;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Healthcare.Application.Services
 {
     public class ProfesionalService
     {
-        private readonly IProfesionalRepository _profesionalRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public ProfesionalService(IProfesionalRepository profesionalRepository, IMapper mapper)
+        public ProfesionalService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _profesionalRepository = profesionalRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<ProfesionalResponseDto>> GetAllAsync()
         {
-            var profesionales = await _profesionalRepository.GetAllAsync();
+            var profesionales = await _unitOfWork.Profesionales.GetAllAsync();
             return _mapper.Map<IEnumerable<ProfesionalResponseDto>>(profesionales);
         }
 
         public async Task<ProfesionalResponseDto?> GetByIdAsync(int id)
         {
-            var profesional = await _profesionalRepository.GetByIdAsync(id);
+            var profesional = await _unitOfWork.Profesionales.GetByIdAsync(id);
             return profesional == null ? null : _mapper.Map<ProfesionalResponseDto?>(profesional);
         }
 
         public async Task<ProfesionalResponseDto> CreateAsync(ProfesionalRequestDto profesionalDto)
         {
             var profesional = _mapper.Map<Profesional>(profesionalDto);
-            await _profesionalRepository.AddAsync(profesional);
-            await _profesionalRepository.SaveChangesAsync();
+            await _unitOfWork.Profesionales.AddAsync(profesional);
+            await _unitOfWork.SaveChangesAsync();
             return _mapper.Map<ProfesionalResponseDto>(profesional);
         }
 
         public async Task<bool> UpdateAsync(int id, ProfesionalRequestDto profesional)
         {
-            var existing = await _profesionalRepository.GetByIdAsync(id);
+            var existing = await _unitOfWork.Profesionales.GetByIdAsync(id);
             if (existing == null)
                 return false;
 
             _mapper.Map(profesional, existing);
-            _profesionalRepository.Update(existing);
-            await _profesionalRepository.SaveChangesAsync();
+            _unitOfWork.Profesionales.Update(existing);
+            await _unitOfWork.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var profesional = await _profesionalRepository.GetByIdAsync(id);
+            var profesional = await _unitOfWork.Profesionales.GetByIdAsync(id);
             if (profesional == null)
                 return false;
 
             profesional.IsDeleted = true;
-            _profesionalRepository.Update(profesional);
-            await _profesionalRepository.SaveChangesAsync();
+            _unitOfWork.Profesionales.Update(profesional);
+            await _unitOfWork.SaveChangesAsync();
             return true;
         }
     }

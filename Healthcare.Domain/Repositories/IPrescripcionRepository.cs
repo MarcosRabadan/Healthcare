@@ -11,6 +11,5 @@ namespace Healthcare.Domain.Repositories
         Task AddAsync(Prescripcion prescripcion);
         void Update(Prescripcion prescripcion);
         void Delete(Prescripcion prescripcion);
-        Task SaveChangesAsync();
     }
 }

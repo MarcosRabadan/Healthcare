@@ -40,10 +40,5 @@ namespace Healthcare.Infrastructure.Repositories
             profesional.IsDeleted = true;
             _context.Profesionales.Update(profesional);
         }
-
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
     }
 }

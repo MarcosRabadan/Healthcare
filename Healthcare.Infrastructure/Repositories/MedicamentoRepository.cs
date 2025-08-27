@@ -40,10 +40,5 @@ namespace Healthcare.Infrastructure.Repositories
             medicamento.IsDeleted = true;
             _context.Medicamentos.Update(medicamento);
         }
-
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
     }
 }
