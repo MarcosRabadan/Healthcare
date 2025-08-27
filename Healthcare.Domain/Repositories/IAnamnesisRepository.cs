@@ -11,6 +11,5 @@ namespace Healthcare.Domain.Repositories
         Task AddAsync(Anamnesis anamnesis);
         void Update(Anamnesis anamnesis);
         void Delete(Anamnesis anamnesis);
-        Task SaveChangesAsync();
     }
 }

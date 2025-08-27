@@ -44,11 +44,6 @@ namespace Healthcare.Infrastructure.Repositories
         {
             alergia.IsDeleted = true;
             _context.Alergias.Update(alergia);
-        }
-
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
+        }       
     }
 }

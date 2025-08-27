@@ -11,6 +11,5 @@ namespace Healthcare.Domain.Repositories
         Task AddAsync(Consulta consulta);
         void Update(Consulta consulta);
         void Delete(Consulta consulta);
-        Task SaveChangesAsync();
     }
 }

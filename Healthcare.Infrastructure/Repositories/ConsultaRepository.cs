@@ -46,10 +46,5 @@ namespace Healthcare.Infrastructure.Repositories
             consulta.IsDeleted = true;
             _context.Consultas.Update(consulta);
         }
-
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
     }
 }

@@ -46,10 +46,5 @@ namespace Healthcare.Infrastructure.Repositories
             cita.IsDeleted = true;
             _context.Citas.Update(cita);
         }
-
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
     }
 }

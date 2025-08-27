@@ -1,10 +1,10 @@
+using Healthcare.Application.Mapping;
 using Healthcare.Application.Services;
 using Healthcare.Domain.Repositories;
 using Healthcare.Infrastructure;
 using Healthcare.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Healthcare.Application.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +19,8 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<HealthcareDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TestDatabase")));
 
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
 builder.Services.AddScoped<IAlergiaRepository, AlergiaRepository>();
@@ -48,6 +50,8 @@ builder.Services.AddAutoMapper(typeof(MedicamentoProfile).Assembly);
 builder.Services.AddAutoMapper(typeof(ProfesionalProfile).Assembly);
 
 builder.Services.AddAutoMapper(typeof(PrescripcionProfile).Assembly);
+
+
 
 var app = builder.Build();
 

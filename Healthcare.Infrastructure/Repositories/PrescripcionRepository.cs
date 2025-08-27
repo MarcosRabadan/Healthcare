@@ -45,11 +45,6 @@ namespace Healthcare.Infrastructure.Repositories
         {
             prescripcion.IsDeleted = true;
             _context.Prescripciones.Update(prescripcion);
-        }
-
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
+        }       
     }
 }

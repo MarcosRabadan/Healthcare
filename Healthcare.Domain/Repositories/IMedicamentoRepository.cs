@@ -11,6 +11,5 @@ namespace Healthcare.Domain.Repositories
         Task AddAsync(Medicamento medicamento);
         void Update(Medicamento medicamento);
         void Delete(Medicamento medicamento);
-        Task SaveChangesAsync();
     }
 }

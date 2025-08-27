@@ -5,31 +5,29 @@ using Healthcare.Application.DTOs.Responses;
 using Healthcare.Domain.Entities;
 using Healthcare.Domain.Enums;
 using Healthcare.Domain.Repositories;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Healthcare.Application.Services
 {
     public class CitaService
     {
-        private readonly ICitaRepository _citaRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public CitaService(ICitaRepository citaRepository, IMapper mapper)
+        public CitaService(IUnitOfWork unitOfwork, IMapper mapper)
         {
-            _citaRepository = citaRepository;
+            _unitOfWork = unitOfwork;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<CitaResponseDto>> GetAllAsync()
         {
-            var citas = await _citaRepository.GetAllAsync();
+            var citas = await _unitOfWork.Citas.GetAllAsync();
             return _mapper.Map<IEnumerable<CitaResponseDto>>(citas);
         }
 
         public async Task<CitaResponseDto?> GetByIdAsync(int id)
         {
-            var cita = await _citaRepository.GetByIdAsync(id);
+            var cita = await _unitOfWork.Citas.GetByIdAsync(id);
             return cita == null ? null : _mapper.Map<CitaResponseDto>(cita);
         }
 
@@ -41,33 +39,33 @@ namespace Healthcare.Application.Services
             }
 
             var cita = _mapper.Map<Cita>(citaDto);
-            await _citaRepository.AddAsync(cita);
-            await _citaRepository.SaveChangesAsync();
+            await _unitOfWork.Citas.AddAsync(cita);
+            await _unitOfWork.SaveChangesAsync();
             var createdDto = _mapper.Map<CitaResponseDto>(cita);
             return (createdDto, null);
         }
 
         public async Task<bool> UpdateAsync(int id, CitaRequestDto cita)
         {
-            var existing = await _citaRepository.GetByIdAsync(id);
+            var existing = await _unitOfWork.Citas.GetByIdAsync(id);
             if (existing == null)
                 return false;
 
             _mapper.Map(cita, existing);
-            _citaRepository.Update(existing);
-            await _citaRepository.SaveChangesAsync();
+            _unitOfWork.Citas.Update(existing);
+            await _unitOfWork.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var cita = await _citaRepository.GetByIdAsync(id);
+            var cita = await _unitOfWork.Citas.GetByIdAsync(id);
             if (cita == null)
                 return false;
 
             cita.IsDeleted = true;
-            _citaRepository.Update(cita);
-            await _citaRepository.SaveChangesAsync();
+            _unitOfWork.Citas.Update(cita);
+            await _unitOfWork.SaveChangesAsync();
             return true;
         }
     }

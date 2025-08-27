@@ -11,6 +11,5 @@ namespace Healthcare.Domain.Repositories
         Task AddAsync(Profesional profesional);
         void Update(Profesional profesional);
         void Delete(Profesional profesional);
-        Task SaveChangesAsync();
     }
 }

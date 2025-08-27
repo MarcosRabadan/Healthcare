@@ -44,10 +44,5 @@ namespace Healthcare.Infrastructure.Repositories
             anamnesis.IsDeleted = true;
             _context.Anamnesis.Update(anamnesis);
         }
-
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
     }
 }
