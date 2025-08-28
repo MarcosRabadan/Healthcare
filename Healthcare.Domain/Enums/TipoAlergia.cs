@@ -9,7 +9,7 @@ namespace Healthcare.Domain.Enums
     public enum TipoAlergia
     {
         Alimentaria,
-        Medicamentosa,
+        Medicamentos,
         Ambiental
     }
 }

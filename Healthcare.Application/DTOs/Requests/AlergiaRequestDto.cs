@@ -18,7 +18,7 @@ namespace Healthcare.Application.DTOs.Requests
 
         [Required]
         [NoFutureDate(ErrorMessage = "La fecha no puede ser futura.")]
-        public DateOnly FechaDiagnostico { get; set; }
+        public DateTime FechaDiagnostico { get; set; }
 
         [Required]
         [StringLength(100)]
