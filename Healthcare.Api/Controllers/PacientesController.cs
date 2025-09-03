@@ -1,8 +1,9 @@
-using Healthcare.Domain.Entities;
-using Healthcare.Application.Services;
-using Microsoft.AspNetCore.Mvc;
-using Healthcare.Application.DTOs.Responses;
 using Healthcare.Application.DTOs.Requests;
+using Healthcare.Application.DTOs.Responses;
+using Healthcare.Application.Services;
+using Healthcare.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Healthcare.Api.Controllers
 {
@@ -18,6 +19,7 @@ namespace Healthcare.Api.Controllers
         }
 
         // GET: /api/pacientes
+        [Authorize(Roles = "Admin,Administrativo")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PacienteResponseDto>>> GetPacientes()
         {
@@ -26,6 +28,7 @@ namespace Healthcare.Api.Controllers
         }
 
         // GET: /api/pacientes/{id}
+        [Authorize(Roles = "Admin,Administrativo")]
         [HttpGet("{id:int}")]
         public async Task<ActionResult<PacienteResponseDto>> GetPaciente(int id)
         {
@@ -38,6 +41,7 @@ namespace Healthcare.Api.Controllers
         }
 
         // POST: /api/pacientes     
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<PacienteResponseDto>> CreatePaciente([FromBody] PacienteRequestDto paciente)
         {
@@ -45,11 +49,14 @@ namespace Healthcare.Api.Controllers
 
             if (result.Error != null)
                 return BadRequest(result.Error);
-
+  
             return CreatedAtAction(nameof(GetPaciente), new { id = result.Created!.Id }, result.Created);
         }
-
+         
+           
+       
         // PUT: /api/pacientes/{id}
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdatePaciente(int id, [FromBody] PacienteRequestDto paciente)
         {
@@ -65,6 +72,7 @@ namespace Healthcare.Api.Controllers
         }
 
         // DELETE: /api/pacientes/{id}
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeletePaciente(int id)
         {

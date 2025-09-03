@@ -1,4 +1,4 @@
-using Healthcare.Application.DTOs;
+using Healthcare.Application.DTOs.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 

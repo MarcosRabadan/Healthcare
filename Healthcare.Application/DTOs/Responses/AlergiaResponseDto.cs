@@ -1,3 +1,4 @@
+using Healthcare.Application.DTOs.Enums;
 using Healthcare.Application.Validators;
 using Healthcare.Domain.Enums;
 using System.ComponentModel.DataAnnotations;

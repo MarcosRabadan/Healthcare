@@ -2,6 +2,7 @@ using Healthcare.Application.DTOs.Requests;
 using Healthcare.Application.DTOs.Responses;
 using Healthcare.Application.Services;
 using Healthcare.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace Healthcare.Api.Controllers
             _consultaService = consultaService;
         }
 
+        [Authorize(Roles = "Admin,Administrativo")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ConsultaResponseDto>>> GetConsultas()
         {
@@ -26,6 +28,7 @@ namespace Healthcare.Api.Controllers
             return Ok(consultas);
         }
 
+        [Authorize(Roles = "Admin,Administrativo")]
         [HttpGet("{id:int}")]
         public async Task<ActionResult<ConsultaResponseDto>> GetConsulta(int id)
         {
@@ -35,6 +38,7 @@ namespace Healthcare.Api.Controllers
             return Ok(consulta);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<ConsultaResponseDto>> CreateConsulta([FromBody] ConsultaRequestDto consulta)
         {
@@ -42,6 +46,7 @@ namespace Healthcare.Api.Controllers
             return CreatedAtAction(nameof(GetConsulta), new { id = created.Id }, created);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateConsulta(int id, [FromBody] ConsultaRequestDto consulta)
         {
@@ -51,6 +56,7 @@ namespace Healthcare.Api.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteConsulta(int id)
         {

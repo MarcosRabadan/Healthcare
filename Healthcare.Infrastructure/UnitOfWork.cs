@@ -14,7 +14,7 @@ namespace Healthcare.Infrastructure
         public ICitaRepository Citas { get; }
         public IAnamnesisRepository Anamnesis { get; }
         public IProfesionalRepository Profesionales { get; }
-
+        public IUsuarioRepository Usuarios { get; }
         public UnitOfWork(
             HealthcareDbContext context,
             IPacienteRepository pacientes,
@@ -24,7 +24,8 @@ namespace Healthcare.Infrastructure
             IConsultaRepository consultas,
             ICitaRepository citas,
             IAnamnesisRepository anamnesis,
-            IProfesionalRepository profesionales)
+            IProfesionalRepository profesionales,
+            IUsuarioRepository usuarios)
         {
             _context = context;
             Pacientes = pacientes;
@@ -35,6 +36,7 @@ namespace Healthcare.Infrastructure
             Citas = citas;
             Anamnesis = anamnesis;
             Profesionales = profesionales;
+            Usuarios = usuarios;
         }
 
         public async Task<int> SaveChangesAsync()

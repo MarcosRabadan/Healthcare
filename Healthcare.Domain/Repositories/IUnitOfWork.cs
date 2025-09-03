@@ -14,6 +14,8 @@ namespace Healthcare.Domain.Repositories
         ICitaRepository Citas { get; }
         IAnamnesisRepository Anamnesis { get; }
         IProfesionalRepository Profesionales { get; }
+        IUsuarioRepository Usuarios { get; }
+
         Task<int> SaveChangesAsync();
     }
 }
