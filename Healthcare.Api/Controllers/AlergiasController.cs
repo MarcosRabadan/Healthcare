@@ -1,7 +1,8 @@
-using Healthcare.Application.DTOs.Responses;
 using Healthcare.Application.DTOs.Requests;
+using Healthcare.Application.DTOs.Responses;
 using Healthcare.Application.Services;
 using Healthcare.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -19,14 +20,16 @@ namespace Healthcare.Api.Controllers
         }
 
         // GET: /api/alergias
+        [Authorize(Roles = "Admin,Administrativo")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AlergiaRequestDto>>> GetAlergias()
         {
             var alergias = await _alergiaService.GetAllAsync();
             return Ok(alergias);
-        }  
+        }
 
         // GET: /api/alergias/{id}
+        [Authorize(Roles = "Admin,Administrativo")]
         [HttpGet("{id:int}")]
         public async Task<ActionResult<AlergiaResponseDto>> GetAlergia(int id)
         {
@@ -38,6 +41,7 @@ namespace Healthcare.Api.Controllers
         }
 
         // POST: /api/alergias
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<AlergiaResponseDto>> CreateAlergia([FromBody] AlergiaRequestDto alergiaDto)
         {
@@ -50,6 +54,7 @@ namespace Healthcare.Api.Controllers
         }
 
         // PUT: /api/alergias/{id}
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateAlergia(int id, [FromBody] AlergiaRequestDto alergia)
         {
@@ -60,6 +65,7 @@ namespace Healthcare.Api.Controllers
             return NoContent();
         }
         // DELETE: /api/alergias/{id}
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAlergia(int id)
         {

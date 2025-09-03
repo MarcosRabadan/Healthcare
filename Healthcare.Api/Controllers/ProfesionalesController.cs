@@ -2,6 +2,7 @@ using Healthcare.Application.DTOs.Requests;
 using Healthcare.Application.DTOs.Responses;
 using Healthcare.Application.Services;
 using Healthcare.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace Healthcare.Api.Controllers
             _profesionalService = profesionalService;
         }
 
+        [Authorize(Roles = "Admin,Administrativo")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProfesionalResponseDto>>> GetProfesionales()
         {
@@ -26,6 +28,7 @@ namespace Healthcare.Api.Controllers
             return Ok(profesionales);
         }
 
+        [Authorize(Roles = "Admin,Administrativo")]
         [HttpGet("{id:int}")]
         public async Task<ActionResult<ProfesionalResponseDto>> GetProfesional(int id)
         {
@@ -35,6 +38,7 @@ namespace Healthcare.Api.Controllers
             return Ok(profesional);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<ProfesionalResponseDto>> CreateProfesional([FromBody] ProfesionalRequestDto profesional)
         {
@@ -42,6 +46,7 @@ namespace Healthcare.Api.Controllers
             return CreatedAtAction(nameof(GetProfesional), new { id = created.Id }, created);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateProfesional(int id, [FromBody] ProfesionalRequestDto profesional)
         {
@@ -51,6 +56,7 @@ namespace Healthcare.Api.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteProfesional(int id)
         {

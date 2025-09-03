@@ -2,6 +2,7 @@ using Healthcare.Application.DTOs.Requests;
 using Healthcare.Application.DTOs.Responses;
 using Healthcare.Application.Services;
 using Healthcare.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace Healthcare.Api.Controllers
             _citaService = citaService;
         }
 
+        [Authorize(Roles = "Admin,Administrativo")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CitaResponseDto>>> GetCitas()
         {
@@ -26,6 +28,7 @@ namespace Healthcare.Api.Controllers
             return Ok(citas);
         }
 
+        [Authorize(Roles = "Admin,Administrativo")]
         [HttpGet("{id:int}")]
         public async Task<ActionResult<CitaResponseDto>> GetCita(int id)
         {
@@ -35,6 +38,7 @@ namespace Healthcare.Api.Controllers
             return Ok(cita);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<CitaResponseDto>> CreateCita([FromBody] CitaRequestDto cita)
         {
@@ -44,9 +48,9 @@ namespace Healthcare.Api.Controllers
                 return BadRequest(result.Error);
 
             return CreatedAtAction(nameof(GetCita), new { id = result.Created!.Id }, result.Created);
-        }  
-        
-   
+        }
+
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateCita(int id, [FromBody] CitaRequestDto cita)
         {
@@ -56,6 +60,7 @@ namespace Healthcare.Api.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteCita(int id)
         {

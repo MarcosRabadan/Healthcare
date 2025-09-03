@@ -26,6 +26,8 @@ namespace Healthcare.Infrastructure
             modelBuilder.Entity<Medicamento>().HasQueryFilter(m => !m.IsDeleted);
             modelBuilder.Entity<Profesional>().HasQueryFilter(p => !p.IsDeleted);
             modelBuilder.Entity<Anamnesis>().HasQueryFilter(a => !a.IsDeleted);
+            modelBuilder.Entity<Usuario>().HasQueryFilter(u => !u.IsDeleted);
+            
         }
     }
 }

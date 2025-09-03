@@ -24,6 +24,13 @@ namespace Healthcare.Application.Constants
         public static readonly ErrorResponseDto EmailYaExiste = new () 
         { 
             Code = "ERR_EMAIL_YA_EXISTE", 
-            Message = "El email ya está en uso." };
-        }
+            Message = "El email ya está en uso." 
+        };
+
+        public static readonly ErrorResponseDto UsuarioYaExiste = new()
+        {
+            Code = "ERR_USUARIO_YA_EXISTE",
+            Message = "El usuario ya existe."
+        };
+    }
 }

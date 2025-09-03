@@ -1,5 +1,6 @@
 using AutoMapper;
 using Healthcare.Application.DTOs;
+using Healthcare.Application.DTOs.Enums;
 using Healthcare.Application.DTOs.Requests;
 using Healthcare.Application.DTOs.Responses;
 using Healthcare.Application.Services;

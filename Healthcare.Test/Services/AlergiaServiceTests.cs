@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Healthcare.Application.DTOs;
+using Healthcare.Application.DTOs.Enums;
 
 namespace Healthcare.Test.Services
 {
@@ -71,7 +72,7 @@ namespace Healthcare.Test.Services
         public async Task CreateAsync_ReturnsError_WhenTipoAlergiaInvalido()
         {
             var request = new AlergiaRequestDto
-            {
+            { 
                 Tipo = new EnumValueDto { Value = 999 },
                 Descripcion = "Test",
                 FechaDiagnostico = DateTime.Today,
