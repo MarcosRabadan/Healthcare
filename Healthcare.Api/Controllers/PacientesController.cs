@@ -1,6 +1,7 @@
 using Healthcare.Application.DTOs.Requests;
 using Healthcare.Application.DTOs.Responses;
 using Healthcare.Application.Services;
+using Healthcare.Application.Utils;
 using Healthcare.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,10 +22,11 @@ namespace Healthcare.Api.Controllers
         // GET: /api/pacientes
         [Authorize(Roles = "Admin,Administrativo")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PacienteResponseDto>>> GetPacientes()
+        public async Task<ActionResult<IEnumerable<PacienteResponseDto>>> GetPacientes([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var pacientes = await _pacienteService.GetAllAsync();
-            return Ok(pacientes);
+            var query = _pacienteService.GetAll();
+            var pagedResult = await PaginacionUtils.PaginateAsync(query, pageNumber, pageSize);
+            return Ok(pagedResult);
         }
 
         // GET: /api/pacientes/{id}

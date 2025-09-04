@@ -6,7 +6,7 @@ namespace Healthcare.Domain.Repositories
 {
     public interface IConsultaRepository
     {
-        Task<IEnumerable<Consulta>> GetAllAsync();
+        IQueryable<Consulta> GetAll();
         Task<Consulta?> GetByIdAsync(int id);
         Task AddAsync(Consulta consulta);
         void Update(Consulta consulta);

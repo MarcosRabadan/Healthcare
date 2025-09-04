@@ -1,8 +1,6 @@
 using Healthcare.Domain.Entities;
 using Healthcare.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Healthcare.Infrastructure.Repositories
 {
@@ -13,13 +11,6 @@ namespace Healthcare.Infrastructure.Repositories
         public AnamnesisRepository(HealthcareDbContext context)
         {
             _context = context;
-        }
-
-        public async Task<IEnumerable<Anamnesis>> GetAllAsync()
-        {
-            return await _context.Anamnesis
-                .Include(a => a.Consulta)
-                .ToListAsync();
         }
 
         public async Task<Anamnesis?> GetByIdAsync(int id)
@@ -43,6 +34,11 @@ namespace Healthcare.Infrastructure.Repositories
         {
             anamnesis.IsDeleted = true;
             _context.Anamnesis.Update(anamnesis);
+        }
+
+        public IQueryable<Anamnesis> GetAll()
+        {
+            return _context.Anamnesis.AsQueryable();
         }
     }
 }

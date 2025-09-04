@@ -15,9 +15,9 @@ namespace Healthcare.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Profesional>> GetAllAsync()
+        public IQueryable<Profesional> GetAll()
         {
-            return await _context.Profesionales.ToListAsync();
+            return _context.Profesionales.AsQueryable();
         }
 
         public async Task<Profesional?> GetByIdAsync(int id)

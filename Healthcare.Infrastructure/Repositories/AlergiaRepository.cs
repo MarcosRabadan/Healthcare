@@ -23,11 +23,9 @@ namespace Healthcare.Infrastructure.Repositories
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 
-        public async Task<IEnumerable<Alergia>> GetAllAsync()
+        public IQueryable<Alergia> GetAll()
         {
-            return await _context.Alergias
-                .Include(a => a.Paciente)
-                .ToListAsync();
+            return _context.Alergias.AsQueryable();
         }
 
         public async Task AddAsync(Alergia alergia)
@@ -44,6 +42,6 @@ namespace Healthcare.Infrastructure.Repositories
         {
             alergia.IsDeleted = true;
             _context.Alergias.Update(alergia);
-        }       
+        }        
     }
 }

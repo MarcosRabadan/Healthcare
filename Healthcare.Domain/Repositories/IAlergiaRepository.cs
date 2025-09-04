@@ -7,7 +7,7 @@ namespace Healthcare.Domain.Repositories
     public interface IAlergiaRepository
     {
         Task<Alergia?> GetByIdAsync(int id);
-        Task<IEnumerable<Alergia>> GetAllAsync();
+        IQueryable<Alergia> GetAll();
         Task AddAsync(Alergia alergia);
         void Update(Alergia alergia);
         void Delete(Alergia alergia);

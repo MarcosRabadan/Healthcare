@@ -17,51 +17,48 @@ namespace Healthcare.Infrastructure.Repositories
 
         public async Task<Usuario?> GetByIdAsync(int id)
         {
-            return await _context.Set<Usuario>()
+            return await _context.Usuarios
                 .FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
         }
 
         public async Task<Usuario?> GetByUsernameAsync(string username)
         {
-            return await _context.Set<Usuario>()
-                .FirstOrDefaultAsync(u => u.Username == username && !u.IsDeleted);
+            return await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.Username == username);
         }
 
-        public async Task<IEnumerable<Usuario>> GetAllAsync()
+        public IQueryable<Usuario> GetAll()
         {
-            return await _context.Set<Usuario>()
-                .Where(u => !u.IsDeleted)
-                .ToListAsync();
+            return _context.Usuarios.AsQueryable();
         }
 
         public async Task AddAsync(Usuario usuario)
         {
-            await _context.Set<Usuario>().AddAsync(usuario);
+            await _context.Usuarios.AddAsync(usuario);
             await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(Usuario usuario)
         {
-            _context.Set<Usuario>().Update(usuario);
+            _context.Usuarios.Update(usuario);
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
         {
-            var usuario = await _context.Set<Usuario>().FindAsync(id);
+            var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario != null && !usuario.IsDeleted)
             {
                 usuario.IsDeleted = true;
-                _context.Set<Usuario>().Update(usuario);
+                _context.Usuarios.Update(usuario);
                 await _context.SaveChangesAsync();
             }
         }
 
         public Task<Usuario?> GetByEmailAsync(string email)
         {
-            return _context.Set<Usuario>()
+            return _context.Usuarios
                 .FirstOrDefaultAsync(u => u.Email == email && !u.IsDeleted);
-
         }
     }
 }

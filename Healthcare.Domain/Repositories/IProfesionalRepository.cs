@@ -6,7 +6,7 @@ namespace Healthcare.Domain.Repositories
 {
     public interface IProfesionalRepository
     {
-        Task<IEnumerable<Profesional>> GetAllAsync();
+        IQueryable<Profesional> GetAll();
         Task<Profesional?> GetByIdAsync(int id);
         Task AddAsync(Profesional profesional);
         void Update(Profesional profesional);

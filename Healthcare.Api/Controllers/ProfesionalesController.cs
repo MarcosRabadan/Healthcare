@@ -1,6 +1,7 @@
 using Healthcare.Application.DTOs.Requests;
 using Healthcare.Application.DTOs.Responses;
 using Healthcare.Application.Services;
+using Healthcare.Application.Utils;
 using Healthcare.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,10 +23,11 @@ namespace Healthcare.Api.Controllers
 
         [Authorize(Roles = "Admin,Administrativo")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProfesionalResponseDto>>> GetProfesionales()
+        public async Task<IActionResult> GetProfesionales([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var profesionales = await _profesionalService.GetAllAsync();
-            return Ok(profesionales);
+            var query = _profesionalService.GetAll();
+            var pagedResult = await PaginacionUtils.PaginateAsync(query, pageNumber, pageSize);
+            return Ok(pagedResult);
         }
 
         [Authorize(Roles = "Admin,Administrativo")]

@@ -1,5 +1,6 @@
 ﻿using Healthcare.Application.DTOs.Requests;
 using Healthcare.Application.Services;
+using Healthcare.Application.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,10 +20,11 @@ namespace Healthcare.Api.Controllers
         // GET: api/users
         [Authorize(Roles = "Admin,Administrativo")]
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var users = await _usuarioService.GetAllAsync();
-            return Ok(users);
+            var query = _usuarioService.GetAll();
+            var pagedResult = await PaginacionUtils.PaginateAsync(query, pageNumber, pageSize);
+            return Ok(pagedResult);
         }
 
         // GET: api/users/{id}

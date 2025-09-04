@@ -6,7 +6,7 @@ namespace Healthcare.Domain.Repositories
 {
     public interface IPrescripcionRepository
     {
-        Task<IEnumerable<Prescripcion>> GetAllAsync();
+        IQueryable<Prescripcion> GetAll();
         Task<Prescripcion?> GetByIdAsync(int id);
         Task AddAsync(Prescripcion prescripcion);
         void Update(Prescripcion prescripcion);

@@ -53,16 +53,39 @@ namespace Healthcare.Test.Services
         [Fact]
         public async Task GetAllAsync_ReturnsMappedAnamnesis()
         {
-            var anamnesisList = new List<Anamnesis> { new Anamnesis { Id = 1 } };
-            var anamnesisDtoList = new List<AnamnesisResponseDto> { new AnamnesisResponseDto { Id = 1 } };
+            var anamnesisList = new List<Anamnesis>
+            {
+                new Anamnesis
+                {
+                    Id = 1,
+                    ConsultaId = 1,
+                    AntecedentesPersonales = "Sin antecedentes relevantes",
+                    AntecedentesFamiliares = "Padre hipertenso",
+                    Habitos = "No fumador",
+                    MotivoConsulta = "Dolor de cabeza",
+                    IsDeleted = false
+                }
+            }.AsQueryable();
 
-            _unitOfWorkMock.Setup(u => u.Anamnesis.GetAllAsync()).ReturnsAsync(anamnesisList);
-            _mapperMock.Setup(m => m.Map<IEnumerable<AnamnesisResponseDto>>(It.IsAny<IEnumerable<Anamnesis>>())).Returns(anamnesisDtoList);
+            var anamnesisDto = new AnamnesisResponseDto
+            {
+                Id = 1,
+                ConsultaId = 1,
+                AntecedentesPersonales = "Sin antecedentes relevantes",
+                AntecedentesFamiliares = "Padre hipertenso",
+                Habitos = "No fumador",
+                MotivoConsulta = "Dolor de cabeza"
+            };
 
-            var result = await _service.GetAllAsync();
+            _unitOfWorkMock.Setup(u => u.Anamnesis.GetAll()).Returns(anamnesisList);
+            _mapperMock.Setup(m => m.Map<AnamnesisResponseDto>(It.IsAny<Anamnesis>())).Returns(anamnesisDto);
+
+            var result = _service.GetAll().ToList();
 
             Assert.NotNull(result);
             Assert.Single(result);
+            Assert.Equal("Sin antecedentes relevantes", result[0].AntecedentesPersonales);
+            Assert.Equal("Dolor de cabeza", result[0].MotivoConsulta);
         }
 
         [Fact]

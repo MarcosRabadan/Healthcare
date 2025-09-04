@@ -51,18 +51,36 @@ namespace Healthcare.Test.Services
         }
 
         [Fact]
-        public async Task GetAllAsync_ReturnsMappedConsultas()
+        public void GetAll_ReturnsMappedConsultas()
         {
-            var consultas = new List<Consulta> { new Consulta { Id = 1 } };
-            var consultasDto = new List<ConsultaResponseDto> { new ConsultaResponseDto { Id = 1 } };
+            var consultas = new List<Consulta>
+            {
+                new Consulta
+                {
+                    Id = 1,
+                    PacienteId = 1,
+                    ProfesionalId = 1,
+                    Fecha = new DateTime(2025, 9, 1),
+                    IsDeleted = false
+                }
+            }.AsQueryable();
 
-            _unitOfWorkMock.Setup(u => u.Consultas.GetAllAsync()).ReturnsAsync(consultas);
-            _mapperMock.Setup(m => m.Map<IEnumerable<ConsultaResponseDto>>(It.IsAny<IEnumerable<Consulta>>())).Returns(consultasDto);
+            var consultaDto = new ConsultaResponseDto
+            {
+                Id = 1,
+                PacienteId = 1,
+                ProfesionalId = 1
+            };
 
-            var result = await _service.GetAllAsync();
+            _unitOfWorkMock.Setup(u => u.Consultas.GetAll()).Returns(consultas);
+            _mapperMock.Setup(m => m.Map<ConsultaResponseDto>(It.IsAny<Consulta>())).Returns(consultaDto);
+
+            var result = _service.GetAll().ToList();
 
             Assert.NotNull(result);
             Assert.Single(result);
+            Assert.Equal(1, result[0].PacienteId);
+            Assert.Equal(1, result[0].ProfesionalId);
         }
 
         [Fact]

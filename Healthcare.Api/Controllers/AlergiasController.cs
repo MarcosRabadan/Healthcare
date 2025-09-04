@@ -1,6 +1,7 @@
 using Healthcare.Application.DTOs.Requests;
 using Healthcare.Application.DTOs.Responses;
 using Healthcare.Application.Services;
+using Healthcare.Application.Utils;
 using Healthcare.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,10 +23,11 @@ namespace Healthcare.Api.Controllers
         // GET: /api/alergias
         [Authorize(Roles = "Admin,Administrativo")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AlergiaRequestDto>>> GetAlergias()
+        public async Task<ActionResult<IEnumerable<AlergiaRequestDto>>> GetAlergias([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var alergias = await _alergiaService.GetAllAsync();
-            return Ok(alergias);
+            var query = _alergiaService.GetAll();
+            var pagedResult = await PaginacionUtils.PaginateAsync(query, pageNumber, pageSize);
+            return Ok(pagedResult);
         }
 
         // GET: /api/alergias/{id}

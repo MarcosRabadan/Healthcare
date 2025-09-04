@@ -50,18 +50,42 @@ namespace Healthcare.Test.Services
         }
 
         [Fact]
-        public async Task GetAllAsync_ReturnsMappedPrescripciones()
+        public void GetAll_ReturnsMappedPrescripciones()
         {
-            var prescripciones = new List<Prescripcion> { new Prescripcion { Id = 1 } };
-            var prescripcionesDto = new List<PrescripcionResponseDto> { new PrescripcionResponseDto { Id = 1 } };
+            var prescripciones = new List<Prescripcion>
+            {
+                new Prescripcion
+                {
+                    Id = 1,
+                    PacienteId = 1,
+                    MedicamentoId = 1,
+                    Dosis = "500mg",
+                    Frecuencia = "2 veces al día",
+                    Duracion = "7 días",
+                    IsDeleted = false
+                }
+            }.AsQueryable();
 
-            _unitOfWorkMock.Setup(u => u.Prescripciones.GetAllAsync()).ReturnsAsync(prescripciones);
-            _mapperMock.Setup(m => m.Map<IEnumerable<PrescripcionResponseDto>>(It.IsAny<IEnumerable<Prescripcion>>())).Returns(prescripcionesDto);
+            var prescripcionDto = new PrescripcionResponseDto
+            {
+                Id = 1,
+                PacienteId = 1,
+                MedicamentoId = 1,
+                Dosis = "500mg",
+                Frecuencia = "2 veces al día",
+                Duracion = "7 días"
+            };
 
-            var result = await _service.GetAllAsync();
+            _unitOfWorkMock.Setup(u => u.Prescripciones.GetAll()).Returns(prescripciones);
+            _mapperMock.Setup(m => m.Map<PrescripcionResponseDto>(It.IsAny<Prescripcion>())).Returns(prescripcionDto);
+
+            var result = _service.GetAll().ToList();
 
             Assert.NotNull(result);
             Assert.Single(result);
+            Assert.Equal("500mg", result[0].Dosis);
+            Assert.Equal("2 veces al día", result[0].Frecuencia);
+            Assert.Equal("7 días", result[0].Duracion);
         }
 
         [Fact]

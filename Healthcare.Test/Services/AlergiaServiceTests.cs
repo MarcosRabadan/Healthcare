@@ -37,7 +37,7 @@ namespace Healthcare.Test.Services
 
             Assert.Null(result);
         }
-
+        
         [Fact]
         public async Task GetByIdAsync_ReturnsMappedAlergia_WhenFound()
         {
@@ -56,16 +56,41 @@ namespace Healthcare.Test.Services
         [Fact]
         public async Task GetAllAsync_ReturnsMappedAlergias()
         {
-            var alergias = new List<Alergia> { new Alergia { Id = 1 } };
-            var alergiasDto = new List<AlergiaResponseDto> { new AlergiaResponseDto { Id = 1 } };
+            var alergias = new List<Alergia>
+            {
+                new Alergia
+                {
+                    Id = 1,
+                    PacienteId = 1,
+                    Tipo = Healthcare.Domain.Enums.TipoAlergia.Medicamentos,
+                    Descripcion = "Alergia a penicilina",
+                    FechaDiagnostico = new DateTime(2022, 1, 15),
+                    Severidad = "Alta",
+                    IsDeleted = false
+                }
+            }.AsQueryable();
 
-            _unitOfWorkMock.Setup(u => u.Alergias.GetAllAsync()).ReturnsAsync(alergias);
-            _mapperMock.Setup(m => m.Map<IEnumerable<AlergiaResponseDto>>(It.IsAny<IEnumerable<Alergia>>())).Returns(alergiasDto);
+            var alergiaDto = new AlergiaResponseDto
+            {
+                Id = 1,
+                PacienteId = 1,
+                Tipo = new EnumValueDto { Value = 1, Name = "Medicamentos" },
+                Descripcion = "Alergia a penicilina",
+                FechaDiagnostico = new DateTime(2022, 1, 15),
+                Severidad = "Alta",
+              
+            };
 
-            var result = await _service.GetAllAsync();
+            _unitOfWorkMock.Setup(u => u.Alergias.GetAll()).Returns(alergias);
+            _mapperMock.Setup(m => m.Map<AlergiaResponseDto>(It.IsAny<Alergia>())).Returns(alergiaDto);
+
+            var result = _service.GetAll().ToList();
 
             Assert.NotNull(result);
             Assert.Single(result);
+            Assert.Equal("Alergia a penicilina", result[0].Descripcion);
+            Assert.Equal(1, result[0].Tipo.Value);
+            Assert.Equal("Medicamentos", result[0].Tipo.Name);
         }
 
         [Fact]

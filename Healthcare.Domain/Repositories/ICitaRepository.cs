@@ -6,7 +6,7 @@ namespace Healthcare.Domain.Repositories
 {
     public interface ICitaRepository
     {
-        Task<IEnumerable<Cita>> GetAllAsync();
+        IQueryable<Cita> GetAll();
         Task<Cita?> GetByIdAsync(int id);
         Task AddAsync(Cita cita);
         void Update(Cita cita);
