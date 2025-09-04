@@ -50,18 +50,38 @@ namespace Healthcare.Test.Services
         }
 
         [Fact]
-        public async Task GetAllAsync_ReturnsMappedProfesionales()
+        public void GetAll_ReturnsMappedProfesionales()
         {
-            var profesionales = new List<Profesional> { new Profesional { Id = 1 } };
-            var profesionalesDto = new List<ProfesionalResponseDto> { new ProfesionalResponseDto { Id = 1 } };
+            var profesionales = new List<Profesional>
+            {
+                new Profesional
+                {
+                    Id = 1,
+                    NombreCompleto = "Marcos Rabadan",
+                    Especialidad = "Cardiología",
+                    Email = "marcos.rabadan@hospital.com",
+                    IsDeleted = false
+                }
+            }.AsQueryable();
 
-            _unitOfWorkMock.Setup(u => u.Profesionales.GetAllAsync()).ReturnsAsync(profesionales);
-            _mapperMock.Setup(m => m.Map<IEnumerable<ProfesionalResponseDto>>(It.IsAny<IEnumerable<Profesional>>())).Returns(profesionalesDto);
+            var profesionalDto = new ProfesionalResponseDto
+            {
+                Id = 1,
+                NombreCompleto = "Marcos Rabadan",
+                Especialidad = "Cardiología",
+                Email = "marcos.rabadan@hospital.com"
+            };
 
-            var result = await _service.GetAllAsync();
+            _unitOfWorkMock.Setup(u => u.Profesionales.GetAll()).Returns(profesionales);
+            _mapperMock.Setup(m => m.Map<ProfesionalResponseDto>(It.IsAny<Profesional>())).Returns(profesionalDto);
+
+            var result = _service.GetAll().ToList();
 
             Assert.NotNull(result);
             Assert.Single(result);
+            Assert.Equal("Marcos Rabadan", result[0].NombreCompleto);
+            Assert.Equal("Cardiología", result[0].Especialidad);
+            Assert.Equal("marcos.rabadan@hospital.com", result[0].Email);
         }
 
         [Fact]

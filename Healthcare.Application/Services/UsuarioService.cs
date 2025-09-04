@@ -20,10 +20,10 @@ namespace Healthcare.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<UsuarioResponseDto>> GetAllAsync()
+        public IQueryable<UsuarioResponseDto> GetAll()
         {
-            var users = await _unitOfWork.Usuarios.GetAllAsync();
-            return _mapper.Map<IEnumerable<UsuarioResponseDto>>(users);
+            return _unitOfWork.Usuarios.GetAll()
+                .Select(u => _mapper.Map<UsuarioResponseDto>(u));
         }
 
         public async Task<UsuarioResponseDto?> GetByIdAsync(int id)

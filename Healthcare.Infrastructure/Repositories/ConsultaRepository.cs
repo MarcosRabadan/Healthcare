@@ -15,12 +15,12 @@ namespace Healthcare.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Consulta>> GetAllAsync()
+        public IQueryable<Consulta> GetAll()
         {
-            return await _context.Consultas
+            return _context.Consultas
                 .Include(c => c.Paciente)
                 .Include(c => c.Profesional)
-                .ToListAsync();
+                .AsQueryable();
         }
 
         public async Task<Consulta?> GetByIdAsync(int id)

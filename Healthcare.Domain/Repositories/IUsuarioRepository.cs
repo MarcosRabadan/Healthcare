@@ -8,7 +8,7 @@ namespace Healthcare.Domain.Repositories
     {
         Task<Usuario?> GetByIdAsync(int id);
         Task<Usuario?> GetByUsernameAsync(string username);
-        Task<IEnumerable<Usuario>> GetAllAsync();
+        IQueryable<Usuario> GetAll();
         Task<Usuario?> GetByEmailAsync(string email);
         Task AddAsync(Usuario usuario);
         Task UpdateAsync(Usuario usuario);

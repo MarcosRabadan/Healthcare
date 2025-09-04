@@ -54,18 +54,41 @@ namespace Healthcare.Test.Services
         }
 
         [Fact]
-        public async Task GetAllAsync_ReturnsMappedCitas()
+        public void GetAll_ReturnsMappedCitas()
         {
-            var citas = new List<Cita> { new Cita { Id = 1 } };
-            var citasDto = new List<CitaResponseDto> { new CitaResponseDto { Id = 1 } };
+            var citas = new List<Cita>
+            {
+                new Cita
+                {
+                    Id = 1,
+                    PacienteId = 1,
+                    ProfesionalId = 1,
+                    Especialidad = "Cardiología",
+                    Estado = EstadoCita.Pendiente,
+                    FechaHora = new DateTime(2025, 9, 1, 9, 0, 0),
+                    IsDeleted = false
+                }
+            }.AsQueryable();
 
-            _unitOfWorkMock.Setup(u => u.Citas.GetAllAsync()).ReturnsAsync(citas);
-            _mapperMock.Setup(m => m.Map<IEnumerable<CitaResponseDto>>(It.IsAny<IEnumerable<Cita>>())).Returns(citasDto);
+            var citaDto = new CitaResponseDto
+            {
+                Id = 1,
+                PacienteId = 1,
+                ProfesionalId = 1,
+                Especialidad = "Cardiología",
+                Estado = new EnumValueDto { Value = (int)EstadoCita.Pendiente, Name = "Pendiente" }
+            };
 
-            var result = await _service.GetAllAsync();
+            _unitOfWorkMock.Setup(u => u.Citas.GetAll()).Returns(citas);
+            _mapperMock.Setup(m => m.Map<CitaResponseDto>(It.IsAny<Cita>())).Returns(citaDto);
+
+            var result = _service.GetAll().ToList();
 
             Assert.NotNull(result);
             Assert.Single(result);
+            Assert.Equal("Cardiología", result[0].Especialidad);
+            Assert.Equal((int)EstadoCita.Pendiente, result[0].Estado.Value);
+            Assert.Equal("Pendiente", result[0].Estado.Name);
         }
 
         [Fact]

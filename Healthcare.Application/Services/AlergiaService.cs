@@ -28,10 +28,10 @@ namespace Healthcare.Application.Services
             return alergia == null ? null : _mapper.Map<AlergiaResponseDto>(alergia);
         }
 
-        public async Task<IEnumerable<AlergiaResponseDto>> GetAllAsync()
+        public IQueryable<AlergiaResponseDto> GetAll()
         {
-            var alergia = await _unitOfWork.Alergias.GetAllAsync();
-            return _mapper.Map<IEnumerable<AlergiaResponseDto>>(alergia.ToList());
+            return _unitOfWork.Alergias.GetAll()
+                .Select(a => _mapper.Map<AlergiaResponseDto>(a));
         }
 
         public async Task<(AlergiaResponseDto? Created, ErrorResponseDto? Error)> CreateAsync(AlergiaRequestDto alergiaDto)

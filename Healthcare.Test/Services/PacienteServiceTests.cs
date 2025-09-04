@@ -32,15 +32,13 @@ namespace Healthcare.Test.Services
             var result = await _service.GetByIdAsync(1);
 
             Assert.Null(result);
-        }
-
+        }  
         [Fact]
         public async Task GetAllAsync_ReturnsMappedPacientes()
         {
-            var pacientes = new List<Paciente> { new Paciente() };
-            var pacientesDto = new List<PacienteResponseDto> 
-            { 
-                new PacienteResponseDto() 
+            var pacientes = new List<Paciente>
+            {
+                new Paciente
                 {
                     Id = 1,
                     Nombre = "Emilio",
@@ -51,18 +49,50 @@ namespace Healthcare.Test.Services
                     Telefono = "600123456",
                     Email = "emilio.delgado@gmail.com",
                     NumeroHistoriaClinica = "MRC-000000001"
-                } 
-            };
+                }
+            }.AsQueryable();
 
-            _unitOfWorkMock.Setup(u => u.Pacientes.GetAllAsync()).ReturnsAsync(pacientes);
-            _mapperMock.Setup(m => m.Map<IEnumerable<PacienteResponseDto>>(pacientes)).Returns(pacientesDto);
+            var pacientesDto = new List<PacienteResponseDto>
+            {
+                new PacienteResponseDto
+                {
+                    Id = 1,
+                    Nombre = "Emilio",
+                    Apellidos = "Delgado",
+                    FechaNacimiento = new DateTime(1990, 1, 1),
+                    Sexo = "M",
+                    Direccion = "Desengano 21",
+                    Telefono = "600123456",
+                    Email = "emilio.delgado@gmail.com",
+                    NumeroHistoriaClinica = "MRC-000000001"
+                }
+            }.AsQueryable();
 
-            var result = await _service.GetAllAsync();
+            _unitOfWorkMock.Setup(u => u.Pacientes.GetAll()).Returns(pacientes);
+            _mapperMock.Setup(m => m.Map<PacienteResponseDto>(It.IsAny<Paciente>()))
+                .Returns((Paciente p) => new PacienteResponseDto
+                {
+                    Id = p.Id,
+                    Nombre = p.Nombre,
+                    Apellidos = p.Apellidos,
+                    FechaNacimiento = p.FechaNacimiento,
+                    Sexo = p.Sexo,
+                    Direccion = p.Direccion,
+                    Telefono = p.Telefono,
+                    Email = p.Email,
+                    NumeroHistoriaClinica = p.NumeroHistoriaClinica
+                });
 
+            // Act
+            var result = _service.GetAll().ToList();
+
+            // Assert
             Assert.NotNull(result);
             Assert.Single(result);
+            Assert.Equal("Emilio", result[0].Nombre);
+            Assert.Equal("MRC-000000001", result[0].NumeroHistoriaClinica);
         }
-
+        
         [Fact]
         public async Task CreateAsync_ReturnsError_WhenEmailExists()
         {

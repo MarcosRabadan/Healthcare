@@ -15,7 +15,7 @@ namespace Healthcare.Infrastructure
         public DbSet<Medicamento> Medicamentos { get; set; }
         public DbSet<Profesional> Profesionales { get; set; }
         public DbSet<Anamnesis> Anamnesis { get; set; }
-
+        public DbSet<Usuario> Usuarios { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Paciente>().HasQueryFilter(p => !p.IsDeleted);

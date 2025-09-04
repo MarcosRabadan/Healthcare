@@ -50,18 +50,38 @@ namespace Healthcare.Test.Services
         }
 
         [Fact]
-        public async Task GetAllAsync_ReturnsMappedMedicamentos()
+        public void GetAll_ReturnsMappedMedicamentos()
         {
-            var medicamentos = new List<Medicamento> { new Medicamento { Id = 1 } };
-            var medicamentosDto = new List<MedicamentoResponseDto> { new MedicamentoResponseDto { Id = 1 } };
+            var medicamentos = new List<Medicamento>
+            {
+                new Medicamento
+                {
+                    Id = 1,
+                    Nombre = "Paracetamol",
+                    Composicion = "Paracetamol 500mg",
+                    FormaFarmaceutica = "Comprimido",
+                    IsDeleted = false
+                }
+            }.AsQueryable();
 
-            _unitOfWorkMock.Setup(u => u.Medicamentos.GetAllAsync()).ReturnsAsync(medicamentos);
-            _mapperMock.Setup(m => m.Map<IEnumerable<MedicamentoResponseDto>>(It.IsAny<IEnumerable<Medicamento>>())).Returns(medicamentosDto);
+            var medicamentoDto = new MedicamentoResponseDto
+            {
+                Id = 1,
+                Nombre = "Paracetamol",
+                Composicion = "Paracetamol 500mg",
+                FormaFarmaceutica = "Comprimido"
+            };
 
-            var result = await _service.GetAllAsync();
+            _unitOfWorkMock.Setup(u => u.Medicamentos.GetAll()).Returns(medicamentos);
+            _mapperMock.Setup(m => m.Map<MedicamentoResponseDto>(It.IsAny<Medicamento>())).Returns(medicamentoDto);
+
+            var result = _service.GetAll().ToList();
 
             Assert.NotNull(result);
             Assert.Single(result);
+            Assert.Equal("Paracetamol", result[0].Nombre);
+            Assert.Equal("Paracetamol 500mg", result[0].Composicion);
+            Assert.Equal("Comprimido", result[0].FormaFarmaceutica);
         }
 
         [Fact]
